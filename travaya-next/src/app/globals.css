@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f9f9f9;
+  --foreground: #333;
+  --primary: #9acd32;
+  --primary-dark: #8ab82b;
+  --secondary: #e77a2f;
+  --secondary-dark: #d5691f;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --nav-bg: rgba(0, 0, 0, 0.9);
+  --nav-text: #f0f8ff;
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #f0f0f0;
+  --card-bg: #1e1e1e;
+  --border-color: #444;
+  --nav-bg: rgba(20, 20, 20, 0.95);
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-dark: var(--secondary-dark);
+  --color-card: var(--card-bg);
+  --color-border-custom: var(--border-color);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hide scrollbar but keep scroll functional */
+* {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+@keyframes footer-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-footer-float {
+  animation: footer-float 3s infinite ease-in-out;
+}
+
+/* ── Hero Entrance Animations ────────────────────────── */
+@keyframes hero-zoom {
+  from {
+    transform: scale(1.12);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(36px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@layer utilities {
+  .animate-hero-zoom {
+    animation: hero-zoom 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .animate-hero-badge {
+    opacity: 0;
+    animation: fade-up 0.7s ease-out 0.1s forwards;
+  }
+
+  .animate-hero-title {
+    opacity: 0;
+    animation: fade-up 0.8s ease-out 0.35s forwards;
+  }
+
+  .animate-hero-subtitle {
+    opacity: 0;
+    animation: fade-up 0.8s ease-out 0.6s forwards;
+  }
+
+  .animate-hero-search {
+    opacity: 0;
+    animation: fade-up 0.9s ease-out 0.9s forwards;
+  }
+}

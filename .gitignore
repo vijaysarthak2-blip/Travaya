@@ -1,0 +1,4 @@
+node_modules/
+.env
+travaya-backend/node_modules/
+travaya-next/node_modules/

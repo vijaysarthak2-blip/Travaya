@@ -1,0 +1,16 @@
+{
+  "atDirectives": [
+    {
+      "name": "@theme",
+      "description": "Define custom theme variables in Tailwind CSS v4."
+    },
+    {
+      "name": "@utility",
+      "description": "Define custom utilities in Tailwind CSS v4."
+    },
+    {
+      "name": "@variant",
+      "description": "Define custom variants in Tailwind CSS v4."
+    }
+  ]
+}
