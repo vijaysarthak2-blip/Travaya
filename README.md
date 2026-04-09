@@ -1,2 +1,0 @@
-# Travaya
-A travel website
