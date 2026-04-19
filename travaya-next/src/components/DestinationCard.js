@@ -19,24 +19,58 @@ const DestinationCard = ({
     const { formatPrice } = useCurrency();
     const liked = isWishlisted(id);
 
-    // Normalize Image Source: Handle local assets vs backend uploads
+    // Curated fallback images mapped by destination name
+    const DESTINATION_IMAGES = {
+        'jaipur': 'https://images.unsplash.com/photo-1477587458883-47145ed68045?w=800&q=80',
+        'manali': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80',
+        'goa': 'https://images.unsplash.com/photo-1587922546307-776227941871?w=800&q=80',
+        'kerala': 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800&q=80',
+        'udaipur': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80',
+        'rishikesh': 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=800&q=80',
+        'leh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=800&q=80',
+        'ladakh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=800&q=80',
+        'varanasi': 'https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=800&q=80',
+        'agra': 'https://images.unsplash.com/photo-1587295656906-b7aebacce58b?w=800&q=80',
+        'darjeeling': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+        'mysore': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=800&q=80',
+        'mysuru': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=800&q=80',
+        'ooty': 'https://images.unsplash.com/photo-1609066861859-0fc70a24a2d6?w=800&q=80',
+        'coorg': 'https://images.unsplash.com/photo-1592364395653-83e648b20cc2?w=800&q=80',
+        'andaman': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+        'shimla': 'https://images.unsplash.com/photo-1597006819268-4b68c7d6b82f?w=800&q=80',
+        'mussoorie': 'https://images.unsplash.com/photo-1608831609427-95d2b0eddaab?w=800&q=80',
+        'tirupati': 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80',
+        'amritsar': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=800&q=80',
+        'hampi': 'https://images.unsplash.com/photo-1600182610361-4b4d664e79dd?w=800&q=80',
+        'spiti': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+        'munnar': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80',
+    };
+
+    // Normalize Image Source
     const normalizedImage = useMemo(() => {
-        const fallback = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80";
+        const fallback = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80";
+        if (!image && !name) return fallback;
+
+        // First: check by destination name (most reliable for seeded data on ephemeral servers)
+        const nameLower = (name || '').toLowerCase().trim();
+        const nameMatch = Object.keys(DESTINATION_IMAGES).find(k => nameLower.includes(k));
+        if (nameMatch) return DESTINATION_IMAGES[nameMatch];
+
         if (!image) return fallback;
         if (image.startsWith('http')) return image;
-        
-        // Known local public folder assets
+
+        // Local public assets
         const localAssets = ['jaipur.jpg', 'udaipur.jpg', 'hero.jpg', 'packages-hero.png', 'contact-hero.png'];
         if (localAssets.includes(image)) return `/${image}`;
         if (image.startsWith('/') && !image.startsWith('/uploads')) return image;
-        
-        // Backend upload (could be '/uploads/file.jpg' or just 'filename.jpg')
+
+        // Backend upload via API_BASE
         const baseUrl = API_BASE.replace(/\/$/, '');
         const path = image.startsWith('/') ? image : `/uploads/${image}`;
         return `${baseUrl}${path}`;
-    }, [image]);
+    }, [image, name]);
 
-    const isUnoptimized = true; // Always unoptimized - external/backend images
+    const isUnoptimized = true;
 
     return (
         <div className={`group bg-card rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>

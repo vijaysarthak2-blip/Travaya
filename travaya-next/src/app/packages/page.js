@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { 
   Search, Filter, SlidersHorizontal, MapPin, Loader2, 
   Compass, ArrowRight, Sparkles, LayoutGrid, List,
-  ChevronDown, ArrowUpDown, Tag, Zap, Clock, Star
+  ChevronDown, ArrowUpDown, Tag, Zap, Clock, Star, X, Check
 } from 'lucide-react';
 import { API_BASE } from '../../config';
 import DestinationCard from '../../components/DestinationCard';
@@ -53,6 +53,7 @@ export default function Packages() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [maxPrice, setMaxPrice] = useState(100000);
     const [visibleCount, setVisibleCount] = useState(15);
+    const [showMobileFilters, setShowMobileFilters] = useState(false);
 
     // Debounce search query to reduce computation during fast typing
     const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -198,6 +199,14 @@ export default function Packages() {
                         </div>
                         
                         <div className="flex items-center gap-4 w-full md:w-auto">
+                            {/* Mobile Filter Toggle */}
+                            <button
+                                onClick={() => setShowMobileFilters(true)}
+                                className="lg:hidden flex items-center gap-2 px-4 py-3 bg-card/50 border border-border-custom rounded-2xl font-black uppercase tracking-widest text-xs hover:border-primary/50 transition-all"
+                            >
+                                <SlidersHorizontal size={16} className="text-primary" />
+                                <span>Filters</span>
+                            </button>
                             <div className="w-full md:w-64">
                                 <CustomDropdown 
                                     value={sortBy}
@@ -240,12 +249,76 @@ export default function Packages() {
                     </div>
                 </div>
 
+                {/* Mobile Filter Drawer Overlay */}
+                {showMobileFilters && (
+                    <div className="fixed inset-0 z-[100] flex justify-end lg:hidden" onClick={() => setShowMobileFilters(false)}>
+                        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+                        <div
+                            className="relative w-full max-w-sm h-full bg-card border-l border-border-custom overflow-y-auto p-8 space-y-8 animate-in slide-in-from-right-10 duration-300"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <div className="flex items-center justify-between">
+                                <h3 className="font-black uppercase tracking-tighter text-lg">Filters</h3>
+                                <button onClick={() => setShowMobileFilters(false)} className="p-2 hover:text-primary transition-colors"><X size={20} /></button>
+                            </div>
+
+                            {/* Region Selector */}
+                            <div className="space-y-4">
+                                <p className="text-primary font-black text-[10px] uppercase tracking-[0.3em] flex items-center gap-2"><Compass size={14} />Select Region</p>
+                                <CustomDropdown
+                                    value={selectedState}
+                                    onChange={setSelectedState}
+                                    options={[{ value: '', label: 'All Regions & UTs' }, ...STATES.map(s => ({ value: s, label: s }))]}
+                                    className="w-full"
+                                />
+                            </div>
+
+                            {/* Budget Slider */}
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center">
+                                    <p className="text-primary font-black text-[10px] uppercase tracking-[0.3em] flex items-center gap-2"><Tag size={14} />Budget Threshold</p>
+                                    <span className="text-xs font-black">₹{maxPrice.toLocaleString()}</span>
+                                </div>
+                                <input type="range" min="5000" max="150000" step="5000" value={maxPrice} onChange={e => setMaxPrice(parseInt(e.target.value))} className="w-full h-2 bg-background border border-border-custom rounded-full appearance-none cursor-pointer accent-primary" />
+                            </div>
+
+                            {/* Categories */}
+                            <div className="space-y-3">
+                                <p className="text-gray-400 font-black text-[10px] uppercase tracking-[0.3em] flex items-center gap-2"><SlidersHorizontal size={14} />Classification</p>
+                                <div className="space-y-2">
+                                    {CATEGORIES.map(category => (
+                                        <button
+                                            key={category.id}
+                                            onClick={() => { setSelectedCategory(category.id); setShowMobileFilters(false); }}
+                                            className={`w-full flex items-center justify-between p-4 rounded-2xl transition-all text-xs font-black uppercase tracking-tighter ${
+                                                selectedCategory === category.id
+                                                    ? 'bg-primary text-black'
+                                                    : 'text-gray-500 hover:bg-primary/10 hover:text-primary'
+                                            }`}
+                                        >
+                                            {category.name}
+                                            {selectedCategory === category.id && <Check size={14} />}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setShowMobileFilters(false)}
+                                className="w-full py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-2xl"
+                            >
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                )}
+
                 <div className="flex flex-col lg:flex-row gap-16">
-                    {/* Floating Master Controls (Sidebar) */}
+                    {/* Floating Master Controls (Sidebar) - Desktop only */}
                     <aside className="hidden lg:block w-80 shrink-0 space-y-10 sticky top-32 h-fit animate-in fade-in slide-in-from-left-10 duration-1000">
                         
                         {/* Discovery Regions */}
-                        <div className="bg-card/50 backdrop-blur-2xl border border-border-custom p-8 rounded-[3rem] shadow-xl space-y-8 relative z-50 group">
+                        <div className="bg-card/50 backdrop-blur-2xl border border-border-custom p-8 rounded-[3rem] shadow-xl space-y-8 relative group" style={{zIndex: 50}}>
                             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors" />
                             <div className="flex items-center gap-3 text-primary font-black text-[10px] uppercase tracking-[0.3em] relative z-10">
                                 <Compass size={18} />
