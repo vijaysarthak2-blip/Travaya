@@ -254,13 +254,16 @@ export default function Packages() {
                     <div className="fixed inset-0 z-[100] flex justify-end lg:hidden" onClick={() => setShowMobileFilters(false)}>
                         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
                         <div
-                            className="relative w-full max-w-sm h-full bg-card border-l border-border-custom overflow-y-auto p-8 space-y-8 animate-in slide-in-from-right-10 duration-300"
+                            className="relative w-full max-w-sm h-full bg-card border-l border-border-custom flex flex-col animate-in slide-in-from-right-10 duration-300"
                             onClick={e => e.stopPropagation()}
                         >
-                            <div className="flex items-center justify-between">
+                            {/* Sticky header — offset below the fixed navbar */}
+                            <div className="sticky top-0 z-10 bg-card flex items-center justify-between px-8 pt-20 pb-5 border-b border-border-custom/50">
                                 <h3 className="font-black uppercase tracking-tighter text-lg">Filters</h3>
-                                <button onClick={() => setShowMobileFilters(false)} className="p-2 hover:text-primary transition-colors"><X size={20} /></button>
+                                <button onClick={() => setShowMobileFilters(false)} className="p-2 hover:text-primary transition-colors rounded-xl"><X size={20} /></button>
                             </div>
+                            {/* Scrollable content */}
+                            <div className="flex-1 overflow-y-auto px-8 py-6 space-y-8">
 
                             {/* Region Selector */}
                             <div className="space-y-4">
@@ -309,6 +312,7 @@ export default function Packages() {
                             >
                                 Apply Filters
                             </button>
+                            </div>{/* end scrollable content */}
                         </div>
                     </div>
                 )}
