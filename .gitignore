@@ -20,10 +20,9 @@ yarn-error.log*
 .idea/
 .vscode/
 
-# Uploads / Images specific to backend or Next.js
+# Uploads / Images
 travaya-backend/uploads/
 travaya-next/Images/
-node_modules/
-.env
-travaya-next/Images/
-*.json
+
+# Google OAuth credential files only
+*client_secret*.json
