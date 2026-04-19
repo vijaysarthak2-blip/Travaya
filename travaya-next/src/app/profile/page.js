@@ -11,14 +11,20 @@ import {
 } from 'lucide-react';
 import { API_BASE } from '../../config';
 import { useAuth } from '../../context/AuthContext';
+import { useCurrency } from '../../context/CurrencyContext';
 
 export default function Profile() {
     const { user, token, logout, loading: authLoading, wishlist, toggleWishlist } = useAuth();
+    const { formatPrice } = useCurrency();
     const router = useRouter();
     
     const [activeTab, setActiveTab] = useState('profile');
     const [bookings, setBookings] = useState([]);
     const [bookingsLoading, setBookingsLoading] = useState(false);
+    
+    // Review State
+    const [reviewModalOpen, setReviewModalOpen] = useState(null);
+    const [reviewForm, setReviewForm] = useState({ rating: 5, text: '' });
     
     // Form States
     const [profileForm, setProfileForm] = useState({ fullName: '', email: '' });
@@ -61,6 +67,25 @@ export default function Profile() {
         }
     };
 
+    const handleCancelTrip = async (bookingId) => {
+        if (!window.confirm("Are you sure you want to cancel this trip? This action cannot be undone.")) return;
+        
+        try {
+            const res = await fetch(`${API_BASE}/bookings/${bookingId}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            if (res.ok) {
+                setStatus({ type: 'success', message: 'Trip successfully cancelled.' });
+                setBookings(prev => prev.filter(b => b._id !== bookingId));
+            } else {
+                throw new Error("Failed to cancel trip.");
+            }
+        } catch (err) {
+            setStatus({ type: 'error', message: err.message });
+        }
+    };
+
     const handleProfileUpdate = async (e) => {
         e.preventDefault();
         setIsActionLoading(true);
@@ -80,6 +105,36 @@ export default function Profile() {
             if (!res.ok) throw new Error(data.error || "Update failed");
 
             setStatus({ type: 'success', message: "Profile updated successfully!" });
+        } catch (err) {
+            setStatus({ type: 'error', message: err.message });
+        } finally {
+            setIsActionLoading(false);
+        }
+    };
+
+    const handleReviewSubmit = async (booking) => {
+        setIsActionLoading(true);
+        setStatus({ type: '', message: '' });
+
+        try {
+            const res = await fetch(`${API_BASE}/api/destinations/${booking.destinationId._id}/reviews`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    rating: reviewForm.rating,
+                    reviewText: reviewForm.text
+                })
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Review submission failed");
+
+            setStatus({ type: 'success', message: "Thank you! Your verified review has been published." });
+            setReviewModalOpen(null);
+            setReviewForm({ rating: 5, text: '' });
         } catch (err) {
             setStatus({ type: 'error', message: err.message });
         } finally {
@@ -361,8 +416,13 @@ export default function Profile() {
                                                                 </div>
                                                                 <h3 className="text-3xl font-black tracking-tighter uppercase italic leading-tight group-hover:text-primary transition-colors">{booking.destinationId?.name || 'Destination'}</h3>
                                                             </div>
-                                                            <div className="bg-primary/20 border border-primary/30 text-primary text-[10px] font-black italic px-4 py-2 rounded-2xl uppercase shadow-inner">
-                                                                TRIP-{booking._id.substring(booking._id.length - 6).toUpperCase()}
+                                                            <div className="text-right space-y-2">
+                                                                <div className="bg-primary/20 border border-primary/30 text-primary text-[10px] font-black italic px-4 py-2 rounded-2xl uppercase shadow-inner">
+                                                                    TRIP-{booking._id.substring(booking._id.length - 6).toUpperCase()}
+                                                                </div>
+                                                                <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest text-right">
+                                                                    Booked {new Date(booking.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                                </p>
                                                             </div>
                                                         </div>
                                                         
@@ -390,14 +450,57 @@ export default function Profile() {
                                                             </div>
                                                         </div>
 
-                                                        <div className="flex items-center justify-between pt-2">
-                                                             <p className="text-2xl font-black text-foreground">₹{booking.destinationId?.price?.toLocaleString() || '0'}</p>
-                                                             <div className="flex gap-4">
-                                                                <button className="px-8 py-3 bg-secondary/10 border border-border-custom rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-black hover:border-primary transition-all shadow-inner">Itinerary Details</button>
-                                                                <button className="px-8 py-3 text-red-500/50 hover:text-red-500 text-[10px] font-black uppercase tracking-widest transition-all">Cancel Trip</button>
+                                                                                                                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-2 gap-4">
+                                                              <p className="text-2xl font-black text-foreground">{formatPrice(booking.destinationId?.price || 0)}</p>
+                                                              <div className="flex flex-wrap gap-4">
+                                                                <button onClick={() => setReviewModalOpen(reviewModalOpen === booking._id ? null : booking._id)} className="px-8 py-3 bg-primary/10 text-primary border border-primary/20 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-black hover:border-primary transition-all shadow-inner">Review Trip</button>
+                                                                <Link href={`/packages/${booking.destinationId?._id}`} className="px-8 py-3 bg-secondary/10 border border-border-custom rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-black hover:border-primary transition-all shadow-inner block text-center">Itinerary</Link>
+                                                                <button onClick={() => handleCancelTrip(booking._id)} className="px-8 py-3 text-red-500/50 hover:text-red-500 text-[10px] font-black uppercase tracking-widest transition-all">Cancel Trip</button>
+                                                              </div>
+                                                         </div>
+                                                         
+                                                         {/* Review Dropdown UI */}
+                                                         {reviewModalOpen === booking._id && (
+                                                             <div className="pt-6 border-t border-border-custom mt-6 animate-in slide-in-from-top-4 duration-500 space-y-4">
+                                                                 <div className="flex items-center justify-between">
+                                                                     <h4 className="text-sm font-black uppercase italic tracking-tighter">Verified Expedition Review</h4>
+                                                                     <button onClick={() => setReviewModalOpen(null)} className="text-gray-500 hover:text-white uppercase text-[10px] font-bold tracking-widest">Close</button>
+                                                                 </div>
+                                                                 
+                                                                 <div className="space-y-4 bg-background/50 p-6 rounded-3xl border border-border-custom">
+                                                                     <div className="flex items-center gap-4">
+                                                                         <span className="text-[10px] uppercase font-black text-gray-500 tracking-[0.3em]">Rating Score</span>
+                                                                         <div className="flex gap-2">
+                                                                             {[1,2,3,4,5].map(star => (
+                                                                                 <button 
+                                                                                     key={star} 
+                                                                                     onClick={() => setReviewForm({...reviewForm, rating: star})}
+                                                                                     className={`text-2xl transition-all ${star <= reviewForm.rating ? 'text-primary drop-shadow-[0_0_8px_rgba(186,220,88,0.8)]' : 'text-gray-600'}`}
+                                                                                 >
+                                                                                     ★
+                                                                                 </button>
+                                                                             ))}
+                                                                         </div>
+                                                                     </div>
+                                                                     
+                                                                     <textarea 
+                                                                         value={reviewForm.text}
+                                                                         onChange={(e) => setReviewForm({...reviewForm, text: e.target.value})}
+                                                                         placeholder="Describe the adventure, the guides, and your overall experience..."
+                                                                         className="w-full bg-background border border-border-custom rounded-2xl p-4 focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all h-24 font-medium text-sm resize-none"
+                                                                     />
+                                                                     
+                                                                     <button 
+                                                                        onClick={() => handleReviewSubmit(booking)}
+                                                                        disabled={!reviewForm.text.trim() || isActionLoading}
+                                                                        className="w-full py-4 bg-primary text-black font-black uppercase tracking-tighter rounded-xl hover:bg-white transition-all disabled:opacity-50"
+                                                                     >
+                                                                        {isActionLoading ? 'Broadcasting...' : 'Publish Official Record'}
+                                                                     </button>
+                                                                 </div>
                                                              </div>
-                                                        </div>
-                                                    </div>
+                                                         )}
+                                                     </div>
                                                 </div>
                                             ))}
                                         </div>

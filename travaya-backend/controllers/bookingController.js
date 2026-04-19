@@ -12,9 +12,20 @@ exports.createBooking = async (req, res, next) => {
       return next(error);
     }
 
+    const Destination = require("../models/Destination");
+    const destination = await Destination.findById(req.body.destinationId);
+    if (!destination) {
+      const error = new Error("Destination not found");
+      error.status = 404;
+      return next(error);
+    }
+    
+    const totalAmount = destination.price * (req.body.travelers || 1);
+
     const booking = new Booking({
       ...req.body,
-      userId: req.user.userId
+      userId: req.user.userId,
+      totalAmount
     });
     await booking.save();
     res.status(201).json({ message: "Booking Successful", bookingId: booking._id });
@@ -29,6 +40,21 @@ exports.getUserBookings = async (req, res, next) => {
       .populate('destinationId')
       .sort({ createdAt: -1 });
     res.json(bookings);
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.getBookingById = async (req, res, next) => {
+  try {
+    const booking = await Booking.findOne({ _id: req.params.id, userId: req.user.userId })
+      .populate('destinationId', 'name state image price');
+    if (!booking) {
+      const error = new Error("Booking not found");
+      error.status = 404;
+      return next(error);
+    }
+    res.json(booking);
   } catch (err) {
     next(err);
   }

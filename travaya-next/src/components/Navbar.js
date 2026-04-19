@@ -8,11 +8,14 @@ import {
     Moon, Sun, User as UserIcon, LogOut, Settings, LayoutDashboard
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { useCurrency, CURRENCIES } from "../context/CurrencyContext";
+import CustomDropdown from "./CustomDropdown";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { user, logout, theme, toggleTheme } = useAuth();
+    const { currency, setCurrency } = useCurrency();
     const pathname = usePathname();
 
     const isHeroPage = pathname === "/" || pathname === "/packages" || pathname.startsWith("/packages/");
@@ -52,7 +55,7 @@ const Navbar = () => {
             <nav
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 py-4 border-b ${isScrolled
                     ? "bg-card/80 backdrop-blur-xl shadow-2xl shadow-black/20 border-border-custom/40"
-                    : "bg-transparent border-white/0"
+                    : "bg-transparent border-transparent"
                     }`}
             >
                 <div className="w-full flex justify-between items-center">
@@ -85,6 +88,14 @@ const Navbar = () => {
                         </div>
 
                         <div className={`flex items-center gap-4 border-l pl-6 transition-colors ${isScrolled ? "border-border-custom" : "border-white/20"}`}>
+                            {/* Currency Selector */}
+                            <CustomDropdown 
+                                value={currency}
+                                onChange={setCurrency}
+                                options={Object.keys(CURRENCIES).map(c => ({ value: c, label: c }))}
+                                className="w-32"
+                                align="right"
+                            />
                             <button
                                 onClick={toggleTheme}
                                 className={`p-2 transition-colors ${(theme === "dark" || (!isScrolled && isHeroPage)) ? "text-white/80 hover:text-primary" : "text-foreground/80 hover:text-primary"}`}

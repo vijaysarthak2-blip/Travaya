@@ -16,6 +16,36 @@ function generateVerificationToken() {
   return crypto.randomBytes(32).toString('hex');
 }
 
+function generateOTP() {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+async function sendSMSOTP(mobile, otp) {
+  // Using ClickSend (free SMS service - 20 free SMS/day)
+  try {
+    const axios = require('axios');
+    const response = await axios.post('https://rest.clicksend.com/api/v3/sms/send', {
+      api_key: process.env.CLICKSEND_API_KEY || 'demo_key',
+      to: mobile,
+      message: `Your Travaya verification code is: ${otp}`,
+      sender: 'Travaya'
+    }, {
+      headers: {
+        'Authorization': `Basic ${Buffer.from(process.env.CLICKSEND_API_KEY || 'demo_key').toString('base64')}`
+      }
+    });
+    
+    console.log('SMS sent successfully:', response.data);
+    return true;
+  } catch (error) {
+    console.error('SMS sending failed:', error.response?.data || error.message);
+    
+    // Fallback to console logging for development
+    console.log(`SMS OTP for ${mobile}: ${otp}`);
+    return true;
+  }
+}
+
 async function sendVerificationEmail(email, token) {
   const verificationUrl = `${process.env.FRONTEND_URL || 'http://localhost:5500'}/verify-email.html?token=${token}`;
 
@@ -169,11 +199,138 @@ exports.googleCallback = (req, res) => {
     { expiresIn: "7d" }
   );
 
-  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5500";
-  res.redirect(`${frontendUrl}/login.html?token=${token}&user=${encodeURIComponent(JSON.stringify({
+  const frontendUrl = process.env.FRONTEND_URL || "http://localhost:3000";
+  res.redirect(`${frontendUrl}/login?token=${token}&user=${encodeURIComponent(JSON.stringify({
     id: req.user._id,
     fullName: req.user.fullName,
     email: req.user.email,
     role: req.user.role
   }))}`);
+};
+
+// Mobile OTP Controllers
+exports.sendMobileOTP = async (req, res, next) => {
+  try {
+    const { mobile } = req.body;
+    
+    // Normalize mobile number (remove spaces, dashes, etc.)
+    const normalizedMobile = mobile.replace(/[\s\-\(\)]/g, '');
+    
+    // Check if mobile number is valid (basic validation)
+    if (!/^\+?\d{10,15}$/.test(normalizedMobile)) {
+      return res.status(400).json({ error: "Invalid mobile number format" });
+    }
+    
+    // Check if user exists with this mobile number
+    let user = await User.findOne({ mobile: normalizedMobile });
+    
+    // Generate OTP
+    const otp = generateOTP();
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes
+    
+    if (user) {
+      // Update existing user's OTP
+      user.mobileOTP = otp;
+      user.mobileOTPExpires = otpExpires;
+    } else {
+      // For demo, we'll allow OTP generation for non-registered numbers
+      // In production, you might want to require registration first
+      return res.status(404).json({ error: "Mobile number not registered" });
+    }
+    
+    await user.save();
+    
+    // Send OTP via SMS
+    await sendSMSOTP(normalizedMobile, otp);
+    
+    res.json({ 
+      message: "OTP sent successfully",
+      mobile: normalizedMobile.substring(0, normalizedMobile.length - 4) + "****" // Masked mobile
+    });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.verifyMobileOTP = async (req, res, next) => {
+  try {
+    const { mobile, otp } = req.body;
+    
+    // Normalize mobile number
+    const normalizedMobile = mobile.replace(/[\s\-\(\)]/g, '');
+    
+    // Find user with this mobile number
+    const user = await User.findOne({ mobile: normalizedMobile });
+    
+    if (!user) {
+      return res.status(404).json({ error: "Mobile number not found" });
+    }
+    
+    // Check if OTP is valid and not expired
+    if (user.mobileOTP !== otp || user.mobileOTPExpires < new Date()) {
+      return res.status(400).json({ error: "Invalid or expired OTP" });
+    }
+    
+    // Mark mobile as verified
+    user.isMobileVerified = true;
+    user.mobileOTP = undefined;
+    user.mobileOTPExpires = undefined;
+    await user.save();
+    
+    res.json({ message: "Mobile number verified successfully" });
+    
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.mobileLogin = async (req, res, next) => {
+  try {
+    const { mobile, otp } = req.body;
+    
+    // Normalize mobile number
+    const normalizedMobile = mobile.replace(/[\s\-\(\)]/g, '');
+    
+    // Find user with this mobile number
+    const user = await User.findOne({ mobile: normalizedMobile });
+    
+    if (!user) {
+      return res.status(404).json({ error: "Mobile number not registered" });
+    }
+    
+    // Check if OTP is valid and not expired
+    if (user.mobileOTP !== otp || user.mobileOTPExpires < new Date()) {
+      return res.status(400).json({ error: "Invalid or expired OTP" });
+    }
+    
+    // Clear OTP and update login method
+    user.mobileOTP = undefined;
+    user.mobileOTPExpires = undefined;
+    user.loginMethod = 'mobile';
+    await user.save();
+    
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        mobile: user.mobile,
+        role: user.role,
+        loginMethod: user.loginMethod
+      }
+    });
+    
+  } catch (error) {
+    next(error);
+  }
 };

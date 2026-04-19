@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { 
   Calendar, MapPin, Clock, Users, ArrowLeft, 
   CheckCircle2, Info, Star, ShieldCheck, 
@@ -11,14 +12,27 @@ import {
 } from 'lucide-react';
 import { API_BASE } from '../../../config';
 import { useAuth } from '../../../context/AuthContext';
+import { useCurrency } from '../../../context/CurrencyContext';
+
+const DynamicMap = dynamic(() => import('../../../components/MapComponent'), {
+    ssr: false,
+    loading: () => (
+        <div className="h-[450px] w-full rounded-[3rem] bg-card border border-border-custom border-dashed flex flex-col items-center justify-center gap-4">
+             <Loader2 className="animate-spin text-primary" size={32} />
+             <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500">Initializing GPS Network...</p>
+        </div>
+    )
+});
 
 export default function PackageDetailsClient({ initialDestination, initialItinerary }) {
     const { id } = useParams();
     const router = useRouter();
     const { user } = useAuth();
+    const { formatPrice } = useCurrency();
     
     const [destination, setDestination] = useState(initialDestination);
     const [itinerary, setItinerary] = useState(initialItinerary);
+    const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(!initialDestination);
     const [error, setError] = useState(null);
 
@@ -53,10 +67,16 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                     const destData = await destRes.json();
                     setDestination(destData);
 
-                    const itinRes = await fetch(`${API_BASE}/destinations/${id}/itinerary`);
+                    const itinRes = await fetch(`${API_BASE}/api/destinations/${id}/itinerary`);
                     if (itinRes.ok) {
                         const itinData = await itinRes.json();
                         setItinerary(itinData);
+                    }
+
+                    const revRes = await fetch(`${API_BASE}/api/destinations/${id}/reviews`);
+                    if (revRes.ok) {
+                        const revData = await revRes.json();
+                        setReviews(revData);
                     }
                 } catch (err) {
                     setError(err.message);
@@ -257,6 +277,49 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                                 </div>
                             </section>
                         )}
+
+                        {/* Interactive GPS Map Segment */}
+                        <section className="space-y-12 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-500 pt-8">
+                            <div className="space-y-2">
+                                <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic flex items-center gap-4">
+                                    <MapPin className="text-primary" size={32} />
+                                    <span>Geographic <span className="text-primary tracking-normal not-italic">Intel</span></span>
+                                </h2>
+                                <p className="text-gray-500 font-medium ml-12 uppercase tracking-widest text-[10px]">Real-time interactive satellite overlay</p>
+                            </div>
+                            
+                            <DynamicMap stateName={destination.state} name={destination.name} />
+                        </section>
+
+                        {/* Reviews System */}
+                        {reviews && reviews.length > 0 && (
+                            <section className="space-y-12 animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-700 pt-8 border-t border-border-custom">
+                                <div className="space-y-2">
+                                    <h2 className="text-3xl md:text-4xl font-black uppercase tracking-tighter italic flex items-center gap-4">
+                                        <Star className="text-primary" size={32} />
+                                        <span>Verified <span className="text-primary tracking-normal not-italic">Records</span></span>
+                                    </h2>
+                                    <p className="text-gray-500 font-medium ml-12 uppercase tracking-widest text-[10px]">Authenticated traveler journals</p>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {reviews.map(review => (
+                                        <div key={review._id} className="bg-card/30 backdrop-blur-xl border border-border-custom p-8 rounded-[3rem] shadow-xl hover:border-primary/30 transition-all space-y-6">
+                                            <div className="flex justify-between items-start">
+                                                <div className="space-y-1">
+                                                    <h4 className="font-black uppercase tracking-tighter text-lg">{review.userId?.fullName || 'Anonymous Voyager'}</h4>
+                                                    <p className="text-[10px] text-gray-500 uppercase tracking-[0.2em]">{new Date(review.createdAt).toLocaleDateString()}</p>
+                                                </div>
+                                                <div className="flex items-center gap-1 bg-background px-3 py-1.5 rounded-full border border-border-custom shadow-inner">
+                                                    <Star size={12} className="text-primary fill-primary" />
+                                                    <span className="text-xs font-black">{review.rating}.0</span>
+                                                </div>
+                                            </div>
+                                            <p className="text-gray-400 font-medium leading-relaxed italic">"{review.reviewText}"</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
                     </div>
 
                     {/* Right: The Boarding Pass Sidebar */}
@@ -283,7 +346,7 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                                         <div className="space-y-1">
                                             <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Total Expedition Fee</p>
                                             <div className="flex items-baseline gap-3">
-                                                <span className="text-6xl font-black italic tracking-tighter italic">₹{destination.price?.toLocaleString()}</span>
+                                                <span className="text-6xl font-black italic tracking-tighter italic">{formatPrice(destination.price)}</span>
                                                 <span className="text-gray-500 font-bold uppercase text-[10px] tracking-widest">/ Per Head</span>
                                             </div>
                                         </div>
@@ -292,7 +355,7 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                                     <div className="space-y-6 pt-10">
                                         <div className="space-y-3">
                                             <label className="text-[10px] font-black uppercase text-gray-500 tracking-[0.3em] ml-3">Expedition Launch Date</label>
-                                            <button className="w-full flex items-center justify-between p-6 bg-background/50 border border-border-custom rounded-3xl hover:border-primary/50 transition-all group/date">
+                                            <button onClick={handleBooking} className="w-full flex items-center justify-between p-6 bg-background/50 border border-border-custom rounded-3xl hover:border-primary/50 transition-all group/date">
                                                 <div className="flex items-center gap-4">
                                                     <Calendar className="text-primary" size={20} />
                                                     <span className="text-sm font-black uppercase tracking-tighter">Manifest a Date</span>

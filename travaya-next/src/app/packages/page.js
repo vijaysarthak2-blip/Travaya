@@ -1,5 +1,5 @@
 "use client";
-
+import CustomDropdown from "../../components/CustomDropdown";
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { 
@@ -9,6 +9,12 @@ import {
 } from 'lucide-react';
 import { API_BASE } from '../../config';
 import DestinationCard from '../../components/DestinationCard';
+import dynamic from 'next/dynamic';
+
+const DynamicMap = dynamic(() => import('../../components/MapComponent'), {
+    ssr: false,
+    loading: () => <div className="h-[500px] w-full bg-border-custom animate-[pulse_2s_ease-in-out_infinite] rounded-[3rem] border border-border-custom"></div>
+});
 
 const STATES = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", 
@@ -56,6 +62,14 @@ export default function Packages() {
     }, [searchQuery]);
 
     useEffect(() => {
+        // Read URL parameters on mount
+        const urlParams = new URL(window.location.href).searchParams;
+        const initialSearch = urlParams.get('search');
+        if (initialSearch) {
+            setSearchQuery(initialSearch);
+            setDebouncedSearch(initialSearch);
+        }
+
         const fetchAll = async () => {
             try {
                 const res = await fetch(`${API_BASE}/destinations`);
@@ -70,6 +84,17 @@ export default function Packages() {
         };
         fetchAll();
     }, []);
+
+    const [scrolledToResults, setScrolledToResults] = useState(false);
+    useEffect(() => {
+        const urlParams = new URL(window.location.href).searchParams;
+        if (urlParams.get('search') && !loading && !scrolledToResults) {
+            setTimeout(() => {
+                document.getElementById('results-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300); // Small delay to let React render the grid items
+            setScrolledToResults(true);
+        }
+    }, [loading, scrolledToResults]);
 
     const filteredDestinations = useMemo(() => {
         let result = destinations.filter(dest => {
@@ -173,16 +198,13 @@ export default function Packages() {
                         </div>
                         
                         <div className="flex items-center gap-4 w-full md:w-auto">
-                            <div className="relative group/sort w-full md:w-64">
-                                <ArrowUpDown className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
-                                <select 
+                            <div className="w-full md:w-64">
+                                <CustomDropdown 
                                     value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value)}
-                                    className="w-full bg-background/50 border border-border-custom pl-14 pr-10 py-6 rounded-3xl appearance-none outline-none focus:border-primary font-black uppercase tracking-tighter text-xs cursor-pointer"
-                                >
-                                    {SORT_OPTIONS.map(opt => <option key={opt.id} value={opt.id}>{opt.name}</option>)}
-                                </select>
-                                <ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none group-focus-within/sort:rotate-180 transition-transform" size={18} />
+                                    onChange={setSortBy}
+                                    options={SORT_OPTIONS.map(opt => ({ value: opt.id, label: opt.name }))}
+                                    className="w-full"
+                                />
                             </div>
 
                             <div className="hidden md:flex p-1.5 bg-background/50 border border-border-custom rounded-3xl gap-1">
@@ -208,9 +230,12 @@ export default function Packages() {
                             </div>
                         </div>
                         
-                        <button className="hidden md:flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-primary hover:underline underline-offset-8">
+                        <button 
+                            onClick={() => setViewMode(viewMode === 'map' ? 'grid' : 'map')}
+                            className={`hidden md:flex items-center gap-3 text-[10px] font-black uppercase tracking-widest hover:underline underline-offset-8 transition-colors ${viewMode === 'map' ? 'text-white' : 'text-primary'}`}
+                        >
                             <MapPin size={14} />
-                            <span>Interactive Map Overview</span>
+                            <span>{viewMode === 'map' ? 'Close Map Overview' : 'Interactive Map Overview'}</span>
                         </button>
                     </div>
                 </div>
@@ -220,24 +245,22 @@ export default function Packages() {
                     <aside className="hidden lg:block w-80 shrink-0 space-y-10 sticky top-32 h-fit animate-in fade-in slide-in-from-left-10 duration-1000">
                         
                         {/* Discovery Regions */}
-                        <div className="bg-card/50 backdrop-blur-2xl border border-border-custom p-8 rounded-[3rem] shadow-xl space-y-8 relative overflow-hidden group">
+                        <div className="bg-card/50 backdrop-blur-2xl border border-border-custom p-8 rounded-[3rem] shadow-xl space-y-8 relative z-50 group">
                             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full blur-3xl -mr-12 -mt-12 group-hover:bg-primary/10 transition-colors" />
                             <div className="flex items-center gap-3 text-primary font-black text-[10px] uppercase tracking-[0.3em] relative z-10">
                                 <Compass size={18} />
                                 <span>Select Region</span>
                             </div>
                             <div className="space-y-4">
-                                <div className="relative">
-                                    <select 
+                                <CustomDropdown 
                                         value={selectedState}
-                                        onChange={(e) => setSelectedState(e.target.value)}
-                                        className="w-full bg-background border border-border-custom p-5 pr-12 rounded-[2rem] focus:border-primary outline-none transition-all cursor-pointer font-black uppercase tracking-tighter text-xs appearance-none"
-                                    >
-                                        <option value="">All Regions & UTs</option>
-                                        {STATES.map(state => <option key={state} value={state}>{state}</option>)}
-                                    </select>
-                                    <ChevronDown className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
-                                </div>
+                                        onChange={setSelectedState}
+                                        options={[
+                                            { value: '', label: 'All Regions & UTs' },
+                                            ...STATES.map(state => ({ value: state, label: state }))
+                                        ]}
+                                        placeholder="All Regions & UTs"
+                                    />
                             </div>
                         </div>
 
@@ -294,7 +317,7 @@ export default function Packages() {
                     </aside>
 
                     {/* Master Gallery (Results) */}
-                    <main className="flex-1">
+                    <main id="results-grid" className="flex-1 scroll-mt-32">
                         {loading ? (
                             <div className="flex flex-col items-center justify-center py-40 gap-8">
                                 <div className="relative">
@@ -307,8 +330,11 @@ export default function Packages() {
                                 </div>
                             </div>
                         ) : filteredDestinations.length > 0 ? (
-                            <div className="space-y-16">
-                                <div className={`${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-12' : 'flex flex-col gap-10'} animate-in fade-in slide-in-from-bottom-12 duration-1000`}>
+                            <div className="space-y-16 animate-in fade-in slide-in-from-bottom-12 duration-1000">
+                                {viewMode === 'map' ? (
+                                     <DynamicMap destinations={filteredDestinations} />
+                                ) : (
+                                    <div className={`${viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 gap-12' : 'flex flex-col gap-10'}`}>
                                     {filteredDestinations.slice(0, visibleCount).map((dest, index) => (
                                         <div key={dest._id} style={{ animationDelay: `${(index % 6) * 80}ms` }} className="animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
                                             <DestinationCard 
@@ -327,9 +353,10 @@ export default function Packages() {
                                             />
                                         </div>
                                     ))}
-                                </div>
+                                    </div>
+                                )}
 
-                                {visibleCount < filteredDestinations.length && (
+                                {visibleCount < filteredDestinations.length && viewMode !== 'map' && (
                                     <div className="flex justify-center pt-12">
                                         <button 
                                             onClick={() => setVisibleCount(prev => prev + 10)}

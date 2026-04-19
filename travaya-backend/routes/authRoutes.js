@@ -34,6 +34,30 @@ router.post(
 
 router.post("/logout", authenticateToken, authController.logout);
 
+// Mobile OTP endpoints
+router.post(
+  "/send-mobile-otp",
+  body("mobile").notEmpty().withMessage("Mobile number is required"),
+  validate,
+  authController.sendMobileOTP
+);
+
+router.post(
+  "/verify-mobile-otp",
+  body("mobile").notEmpty().withMessage("Mobile number is required"),
+  body("otp").notEmpty().withMessage("OTP is required"),
+  validate,
+  authController.verifyMobileOTP
+);
+
+router.post(
+  "/mobile-login",
+  body("mobile").notEmpty().withMessage("Mobile number is required"),
+  body("otp").notEmpty().withMessage("OTP is required"),
+  validate,
+  authController.mobileLogin
+);
+
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get(

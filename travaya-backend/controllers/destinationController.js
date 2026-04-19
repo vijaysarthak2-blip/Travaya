@@ -64,3 +64,48 @@ exports.seedItineraries = async (req, res, next) => {
     next(err);
   }
 };
+
+const Review = require("../models/Review");
+
+exports.createReview = async (req, res, next) => {
+    try {
+        const destinationId = req.params.id;
+        const userId = req.user.id;
+        const { rating, reviewText } = req.body;
+
+        const bookingExists = await require("../models/Booking").findOne({
+            userId,
+            destinationId,
+            paymentStatus: { $in: ["completed", "success"] }
+        });
+
+        if (!bookingExists) {
+            return res.status(403).json({ error: "Only verified travelers can leave a review." });
+        }
+
+        const newReview = await Review.create({
+            destinationId,
+            userId,
+            rating,
+            reviewText
+        });
+
+        res.status(201).json(newReview);
+    } catch (err) {
+        if (err.code === 11000) {
+            return res.status(400).json({ error: "You have already reviewed this destination." });
+        }
+        next(err);
+    }
+};
+
+exports.getReviews = async (req, res, next) => {
+    try {
+        const reviews = await Review.find({ destinationId: req.params.id })
+            .populate("userId", "fullName")
+            .sort({ createdAt: -1 });
+        res.json(reviews);
+    } catch (err) {
+        next(err);
+    }
+};

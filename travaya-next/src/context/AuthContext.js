@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { API_BASE } from '../config';
 
 const AuthContext = createContext();
@@ -11,6 +12,7 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [theme, setTheme] = useState('light');
     const [wishlist, setWishlist] = useState([]);
+    const pathname = usePathname();
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
@@ -35,6 +37,13 @@ export const AuthProvider = ({ children }) => {
         document.documentElement.classList.toggle('dark', storedTheme === 'dark');
         setLoading(false);
     }, []);
+
+    // Re-assert dark mode forcefully on route changes to survive Next.js BF-cache wipes
+    useEffect(() => {
+        if (!loading) {
+            document.documentElement.classList.toggle('dark', theme === 'dark');
+        }
+    }, [pathname, theme, loading]);
 
     const login = (userData, authToken) => {
         setUser(userData);

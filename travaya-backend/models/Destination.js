@@ -29,7 +29,17 @@ const destinationSchema = new mongoose.Schema({
   type: [{
     type: String,
     enum: ["heritage", "nature", "popular", "adventure", "cultural", "spiritual"]
-  }]
+  }],
+  rating: {
+    type: Number,
+    default: 4.8,
+    min: 1,
+    max: 5
+  },
+  reviewCount: {
+    type: Number,
+    default: 0
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model("Destination", destinationSchema);

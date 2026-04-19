@@ -5,9 +5,13 @@ import { Search, MapPin, Plane, Sparkles, TrendingUp } from 'lucide-react';
 import { API_BASE } from '../config';
 import DestinationCard from '../components/DestinationCard';
 
+import { useRouter } from 'next/navigation';
+
 export default function Home() {
     const [destinations, setDestinations] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const router = useRouter();
 
     useEffect(() => {
         const fetchPopular = async () => {
@@ -69,10 +73,18 @@ export default function Home() {
                             <input
                                 type="text"
                                 placeholder="Where do you want to go?"
-                                className="w-full bg-transparent border-none text-white placeholder-gray-400 focus:ring-0 text-sm md:text-base"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') router.push(`/packages${searchTerm ? '?search=' + encodeURIComponent(searchTerm) : ''}`)
+                                }}
+                                className="w-full bg-transparent border-none text-white placeholder-gray-400 focus:outline-none focus:ring-0 outline-none text-sm md:text-base"
                             />
                         </div>
-                        <button className="bg-primary hover:bg-primary-dark text-black font-bold px-8 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2 hover:scale-105 active:scale-95">
+                        <button 
+                            onClick={() => router.push(`/packages${searchTerm ? '?search=' + encodeURIComponent(searchTerm) : ''}`)}
+                            className="bg-primary hover:bg-primary-dark text-black font-bold px-8 py-3 rounded-xl transition-all shadow-lg flex items-center gap-2 hover:scale-105 active:scale-95"
+                        >
                             <Search size={18} />
                             <span className="hidden sm:inline">Explore</span>
                         </button>

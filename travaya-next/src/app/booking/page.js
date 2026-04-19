@@ -109,7 +109,7 @@ function BookingForm() {
 
             setSuccess(true);
             setTimeout(() => {
-                router.push('/profile');
+                router.push(`/checkout/${data.bookingId}`);
             }, 3000);
         } catch (err) {
             setError(err.message);
@@ -134,10 +134,10 @@ function BookingForm() {
                         <CheckCircle2 size={48} />
                     </div>
                     <div className="space-y-2">
-                        <h1 className="text-3xl font-bold">Booking Confirmed!</h1>
+                        <h1 className="text-3xl font-bold">Booking Initialized!</h1>
                         <p className="text-gray-500 leading-relaxed">
-                            Adventure awaits! Your trip to <span className="text-foreground font-bold">{destination?.name}</span> has been booked. 
-                            Redirecting to your profile to view details...
+                            Adventure awaits! Your itinerary for <span className="text-foreground font-bold">{destination?.name}</span> is reserved. 
+                            Redirecting to secure payment gateway...
                         </p>
                     </div>
                     <div className="w-full bg-gray-200 h-1 rounded-full overflow-hidden">
@@ -150,43 +150,46 @@ function BookingForm() {
 
     return (
         <div className="min-h-screen bg-background pt-32 pb-24 px-6">
-            <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12">
-                {/* Left: Summary */}
-                <div className="lg:col-span-2 space-y-8">
-                     <button 
-                        onClick={() => router.back()}
-                        className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-primary transition-colors"
-                    >
-                        <ArrowLeft size={16} />
-                        Back to Details
-                    </button>
+            <div className="max-w-5xl mx-auto mb-10 space-y-6">
+                 <button 
+                    onClick={() => router.back()}
+                    className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-primary transition-colors"
+                >
+                    <ArrowLeft size={16} />
+                    Back to Details
+                </button>
 
-                    <div className="space-y-6">
-                        <h1 className="text-4xl font-bold tracking-tighter">Plan Your <span className="text-primary italic">Perfect Trip</span></h1>
-                        <p className="text-gray-500 leading-relaxed">
-                            Complete the form to secure your spot. Our team will contact you for further customization.
-                        </p>
-                    </div>
+                <div className="space-y-4">
+                    <h1 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">Plan Your <span className="text-primary italic">Perfect Trip</span></h1>
+                    <p className="text-gray-500 font-medium leading-relaxed max-w-xl">
+                        Complete the form to secure your spot. Our team will contact you for further customization.
+                    </p>
+                </div>
+            </div>
 
+            <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+                {/* Left: Summary Card */}
+                <div className="lg:col-span-2 sticky top-32">
                     {destination && (
-                        <div className="p-6 bg-card border border-border-custom rounded-3xl space-y-4 shadow-sm">
-                            <img src={destination.image} alt={destination.name} className="w-full h-40 object-cover rounded-2xl" />
-                            <div className="space-y-2">
-                                <h3 className="font-bold text-xl">{destination.name}</h3>
-                                <div className="flex items-center gap-2 text-gray-400 text-sm">
-                                    <MapPin size={14} />
+                        <div className="bg-card border border-border-custom rounded-[2rem] shadow-2xl overflow-hidden p-3 relative group">
+                            <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                            <img src={destination.image} alt={destination.name} className="w-full h-56 object-cover rounded-[1.5rem]" />
+                            <div className="p-6 space-y-4">
+                                <h3 className="font-black text-3xl uppercase italic tracking-tighter">{destination.name}</h3>
+                                <div className="flex items-center gap-2 text-gray-400 font-bold text-sm uppercase tracking-widest">
+                                    <MapPin size={16} className="text-primary" />
                                     <span>{destination.state}</span>
                                 </div>
-                                <div className="pt-2 flex justify-between items-center">
-                                    <span className="text-xs font-bold uppercase text-gray-500 tracking-wider">Per Person</span>
-                                    <span className="text-xl font-black text-primary italic">₹{destination.price}</span>
+                                <div className="pt-6 mt-6 border-t border-border-custom flex justify-between items-center">
+                                    <span className="text-[10px] font-black uppercase text-gray-500 tracking-[0.2em] ml-1">Per Person</span>
+                                    <span className="text-3xl font-black text-primary italic tracking-tighter">₹{destination.price?.toLocaleString()}</span>
                                 </div>
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* Right: Form */}
+                {/* Right: Form Card */}
                 <div className="lg:col-span-3">
                     <div className="bg-card border border-border-custom rounded-[2rem] shadow-2xl p-8 md:p-10">
                         {error && (

@@ -19,7 +19,8 @@ router.post(
 );
 
 router.get("/", authenticateToken, bookingController.getUserBookings);
-router.delete("/:id", authenticateToken, bookingController.deleteBooking);
 router.get("/all", authenticateToken, bookingController.getAllBookingsDetailed);
+router.get("/:id", authenticateToken, bookingController.getBookingById);
+router.delete("/:id", authenticateToken, bookingController.deleteBooking);
 
 module.exports = router;

@@ -85,7 +85,7 @@ export default function Contact() {
                     <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-background" />
                 </div>
 
-                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-6">
+                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-6 pb-16">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-black uppercase tracking-[0.2em] backdrop-blur-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
                         <MessageSquare size={14} />
                         <span>Get in Touch</span>

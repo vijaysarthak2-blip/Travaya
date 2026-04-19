@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { MapPin, ArrowRight, Star, Clock, Heart, ShieldCheck, Flame } from 'lucide-react';
 import { API_BASE } from '../config';
 import { useAuth } from '../context/AuthContext';
+import { useCurrency } from '../context/CurrencyContext';
 
 const DestinationCard = ({ 
     id, name, state, price, image, description, 
@@ -15,6 +16,7 @@ const DestinationCard = ({
 }) => {
     const isList = viewMode === 'list';
     const { toggleWishlist, isWishlisted, user } = useAuth();
+    const { formatPrice } = useCurrency();
     const liked = isWishlisted(id);
 
     // Normalize Image Source: Handle local assets vs backend uploads
@@ -43,7 +45,7 @@ const DestinationCard = ({
     }, [normalizedImage]);
 
     return (
-        <div className={`group bg-card rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-transform`}>
+        <div className={`group bg-card rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>
             {/* Image Container */}
             <div className={`relative overflow-hidden ${isList ? 'w-full md:w-[400px] shrink-0 h-64 md:h-auto rounded-t-[2.5rem] md:rounded-l-[2.5rem] md:rounded-tr-none' : 'h-72 rounded-t-[2.5rem]'} will-change-contents`}>
                 <Image 
@@ -52,22 +54,22 @@ const DestinationCard = ({
                     fill
                     unoptimized={isUnoptimized}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-110 will-change-transform"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110 will-change-[transform,opacity]"
                 />
                 
                 {/* Overlays */}
-                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent group-hover:from-primary/40 transition-colors duration-500" />
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 to-transparent group-hover:from-primary/40 transition-colors duration-300" />
                 
                 {/* Badges Stack */}
                 <div className="absolute top-6 left-6 flex flex-col gap-2">
                     {isTrending && (
-                        <div className="backdrop-blur-md bg-primary/90 text-black font-black px-4 py-1.5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-2xl flex items-center gap-2 animate-in slide-in-from-left-4 duration-300">
+                        <div className="backdrop-blur-md bg-primary/90 text-black font-black px-4 py-1.5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-md flex items-center gap-2 animate-in slide-in-from-left-4 duration-300">
                             <Flame size={12} fill="currentColor" />
                             <span>Trending</span>
                         </div>
                     )}
                     {isBestValue && (
-                        <div className="backdrop-blur-md bg-green-500/90 text-white font-black px-4 py-1.5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-2xl flex items-center gap-2 animate-in slide-in-from-left-4 duration-300">
+                        <div className="backdrop-blur-md bg-green-500/90 text-white font-black px-4 py-1.5 rounded-xl text-[10px] uppercase tracking-[0.2em] shadow-md flex items-center gap-2 animate-in slide-in-from-left-4 duration-300">
                              <ShieldCheck size={12} />
                              <span>Best Value</span>
                         </div>
@@ -119,7 +121,7 @@ const DestinationCard = ({
                     <div className="space-y-1">
                         <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Base Fee</p>
                         <div className="flex items-baseline gap-1">
-                            <span className="text-2xl font-black italic tracking-tighter">₹{price.toLocaleString()}</span>
+                            <span className="text-2xl font-black italic tracking-tighter">{formatPrice(price)}</span>
                             <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest">/ pp</span>
                         </div>
                     </div>

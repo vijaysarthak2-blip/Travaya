@@ -3,8 +3,6 @@ import "./globals.css";
 import { AuthProvider } from "../context/AuthContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import NoSSRWrapper from "../components/NoSSRWrapper";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -16,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: {
     default: "Travaya | Luxury Travel Explorer",
     template: "%s | Travaya"
@@ -47,6 +46,8 @@ export const metadata = {
   },
 };
 
+import { CurrencyProvider } from "../context/CurrencyContext";
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -55,17 +56,15 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
-        <AuthProvider>
-          <NoSSRWrapper>
+        <CurrencyProvider>
+          <AuthProvider>
             <Navbar />
-          </NoSSRWrapper>
-          <main className="flex-1">
-            {children}
-          </main>
-          <NoSSRWrapper>
+            <main className="flex-1">
+              {children}
+            </main>
             <Footer />
-          </NoSSRWrapper>
-        </AuthProvider>
+          </AuthProvider>
+        </CurrencyProvider>
       </body>
     </html>
   );

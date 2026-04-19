@@ -38,12 +38,22 @@ app.use(helmet({
   },
 }));
 
-const allowedOrigins = process.env.NODE_ENV === "production"
-  ? ["https://yourdomain.com"]
-  : ["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:5000"];
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  // Production: set FRONTEND_URL in Render environment variables
+  ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
+];
 
 app.use(cors({
-  origin: true, // Allow any origin to keep development smooth
+  origin: (origin, callback) => {
+    // Allow server-to-server (no origin) and all vercel.app preview deployments
+    if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
@@ -137,8 +147,12 @@ app.get("/seed-data", require("./controllers/destinationController").seedDestina
 app.get("/api/itinerary/:id", require("./controllers/destinationController").getItineraryByDestinationId);
 app.get("/seed-itineraries", require("./controllers/destinationController").seedItineraries);
 
+const paymentRoutes = require("./routes/paymentRoutes");
+
 app.use("/bookings", bookingRoutes);
 app.use("/api/bookings", bookingRoutes); // handles /api/bookings/all
+app.use("/api/payments", paymentRoutes);
+app.use("/payments", paymentRoutes);
 
 app.use("/api/admin", adminRoutes);
 
