@@ -19,36 +19,56 @@ const DestinationCard = ({
     const { formatPrice } = useCurrency();
     const liked = isWishlisted(id);
 
-    // Curated fallback images mapped by destination name
+    // Curated fallback images mapped by destination name - using authentic city/landmark photography
     const DESTINATION_IMAGES = {
         'jaipur': 'https://images.unsplash.com/photo-1477587458883-47145ed68045?w=600&q=75',
-        'manali': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=75',
-        'goa': 'https://images.unsplash.com/photo-1587922546307-776227941871?w=600&q=75',
-        'kerala': 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=600&q=75',
         'udaipur': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=75',
-        'rishikesh': 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=600&q=75',
+        'mumbai': 'https://images.unsplash.com/photo-1522067448833-87a419409f92?w=600&q=75',
+        'bangalore': 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&q=75',
+        'bengaluru': 'https://images.unsplash.com/photo-1596176530529-78163a4f7af2?w=600&q=75',
+        'manali': 'https://images.unsplash.com/photo-1605649487212-4d4ce7bb8b42?w=600&q=75',
+        'goa': 'https://images.unsplash.com/photo-1512343879784-a957bd828ec5?w=600&q=75',
+        'panaji': 'https://images.unsplash.com/photo-1512343879784-a957bd828ec5?w=600&q=75',
+        'kerala': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=75',
+        'alleppey': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=75',
+        'munnar': 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=600&q=75',
+        'varanasi': 'https://images.unsplash.com/photo-1561359313-0639aad3ecce?w=600&q=75',
+        'agra': 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=75',
+        'mysore': 'https://images.unsplash.com/photo-1600100397608-f010f41beb1cd?w=600&q=75',
+        'mysuru': 'https://images.unsplash.com/photo-1600100397608-f010f41beb1cd?w=600&q=75',
+        'amritsar': 'https://images.unsplash.com/photo-1514222026857-e92ed25d97f2?w=600&q=75',
+        'tirupati': 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=600&q=75',
+        'bodh gaya': 'https://images.unsplash.com/photo-1590623267568-7c87c4273391?w=600&q=75',
+        'khajuraho': 'https://images.unsplash.com/photo-1621815132646-7c6d669c2773?w=600&q=75',
+        'hampi': 'https://images.unsplash.com/photo-1600182610361-4b4d664e79dd?w=600&q=75',
+        'kaziranga': 'https://images.unsplash.com/photo-1632766324269-8084aeb65c69?w=600&q=75',
+        'kutch': 'https://images.unsplash.com/photo-1589410940428-115f22e7de11?w=600&q=75',
+        'shimla': 'https://images.unsplash.com/photo-1597006819268-4b68c7d6b82f?w=600&q=75',
+        'darjeeling': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75',
         'leh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=600&q=75',
         'ladakh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=600&q=75',
-        'varanasi': 'https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=600&q=75',
-        'agra': 'https://images.unsplash.com/photo-1587295656906-b7aebacce58b?w=600&q=75',
-        'darjeeling': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75',
-        'mysore': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=600&q=75',
-        'mysuru': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=600&q=75',
+        'tawang': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=75',
+        'spiti': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75',
+        'visakhapatnam': 'https://images.unsplash.com/photo-1605663738466-9b0dabc1b0c6?w=600&q=75',
+        'guwahati': 'https://images.unsplash.com/photo-1590050853504-20ce6b12a83c?w=600&q=75',
+        'patna': 'https://images.unsplash.com/photo-1624635848206-a83d47f9c2d1?w=600&q=75',
+        'raipur': 'https://images.unsplash.com/photo-1608755030283-9b90956b68ba?w=600&q=75',
+        'lonavala': 'https://images.unsplash.com/photo-1575448324424-7ed5fdfb5f90?w=600&q=75',
+        'bhopal': 'https://images.unsplash.com/photo-1591873322108-769a6eb1eb2b?w=600&q=75',
+        'ranchi': 'https://images.unsplash.com/photo-1621217643501-7b003c004246?w=600&q=75',
+        'gurgaon': 'https://images.unsplash.com/photo-1574513681422-0a1eb1808603?w=600&q=75',
+        'ahmedabad': 'https://images.unsplash.com/photo-1600078686884-23e595dfda13?w=600&q=75',
+        'rishikesh': 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=600&q=75',
         'ooty': 'https://images.unsplash.com/photo-1609066861859-0fc70a24a2d6?w=600&q=75',
         'coorg': 'https://images.unsplash.com/photo-1592364395653-83e648b20cc2?w=600&q=75',
         'andaman': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=75',
-        'shimla': 'https://images.unsplash.com/photo-1597006819268-4b68c7d6b82f?w=600&q=75',
         'mussoorie': 'https://images.unsplash.com/photo-1608831609427-95d2b0eddaab?w=600&q=75',
-        'tirupati': 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&q=75',
-        'amritsar': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=600&q=75',
-        'hampi': 'https://images.unsplash.com/photo-1600182610361-4b4d664e79dd?w=600&q=75',
-        'spiti': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75',
-        'munnar': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=75',
     };
 
     // Normalize Image Source
     const normalizedImage = useMemo(() => {
-        const fallback = "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80";
+        // Ultimate fallback picture reflecting heritage instead of a random mountain
+        const fallback = "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80";
         if (!image && !name) return fallback;
 
         // First: check by destination name (most reliable for seeded data on ephemeral servers)
