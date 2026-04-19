@@ -165,35 +165,35 @@ export default function DestinationsTab({ token }) {
 
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
-            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 bg-card border border-border-custom rounded-[2.5rem] p-8 shadow-sm">
-                <div className="space-y-1">
-                    <h2 className="text-2xl font-black italic uppercase tracking-tighter">Manage <span className="text-primary not-italic font-bold">Destinations</span></h2>
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-3 bg-card border border-border-custom rounded-2xl md:rounded-[2.5rem] p-4 md:p-8 shadow-sm">
+                <div className="space-y-0.5">
+                    <h2 className="text-lg md:text-2xl font-black italic uppercase tracking-tighter">Manage <span className="text-primary not-italic font-bold">Destinations</span></h2>
                     <p className="text-xs text-gray-500 font-medium">Create and modify travel packages</p>
                 </div>
-                <div className="flex items-center gap-4 w-full md:w-auto">
-                    <div className="relative w-full max-w-xs">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                <div className="flex items-center gap-2 w-full md:w-auto">
+                    <div className="relative flex-1 md:w-64">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={15} />
                         <input 
                             type="text" 
                             placeholder="Search..." 
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full bg-background border border-border-custom rounded-2xl pl-12 pr-4 py-3 text-sm focus:outline-none focus:border-primary transition-all"
+                            className="w-full bg-background border border-border-custom rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-all"
                         />
                     </div>
                     <button 
                         onClick={() => openModal()}
-                        className="flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-2xl text-xs font-bold hover:bg-primary-dark transition-all shadow-lg active:scale-95 whitespace-nowrap"
+                        className="flex items-center gap-1.5 px-3 md:px-6 py-2.5 md:py-3 bg-primary text-black rounded-xl text-xs font-bold hover:bg-primary-dark transition-all shadow-lg active:scale-95 whitespace-nowrap"
                     >
-                        <Plus size={16} /> New <span className="hidden sm:inline">Destination</span>
+                        <Plus size={15} /> New <span className="hidden sm:inline">Destination</span>
                     </button>
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-6">
                 {filteredDests.map(dest => (
-                    <div key={dest._id} className="bg-card border border-border-custom rounded-3xl overflow-hidden shadow-sm group hover:border-primary/50 transition-all flex flex-col">
-                        <div className="relative h-48 overflow-hidden">
+                    <div key={dest._id} className="bg-card border border-border-custom rounded-2xl md:rounded-3xl overflow-hidden shadow-sm group hover:border-primary/50 transition-all flex flex-col">
+                        <div className="relative h-36 md:h-48 overflow-hidden">
                             <img src={dest.image} alt={dest.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                             <div className="absolute top-4 right-4 flex gap-2">
                                 <button onClick={() => openModal(dest)} className="w-8 h-8 rounded-full bg-black/50 backdrop-blur-md text-white flex items-center justify-center hover:bg-primary transition-colors hover:text-black">
@@ -204,15 +204,15 @@ export default function DestinationsTab({ token }) {
                                 </button>
                             </div>
                         </div>
-                        <div className="p-6 flex flex-col flex-1">
-                            <div className="flex justify-between items-start mb-2">
-                                <h3 className="font-bold text-lg leading-tight">{dest.name}</h3>
-                                <span className="text-xs font-bold bg-primary/10 text-primary px-2 py-1 rounded-lg">₹{dest.price}</span>
+                        <div className="p-3 md:p-6 flex flex-col flex-1">
+                            <div className="flex justify-between items-start mb-1.5">
+                                <h3 className="font-bold text-sm md:text-lg leading-tight">{dest.name}</h3>
+                                <span className="text-[10px] font-bold bg-primary/10 text-primary px-1.5 py-0.5 rounded-lg ml-1">₹{dest.price}</span>
                             </div>
-                            <div className="flex items-center gap-1.5 text-xs text-gray-400 mb-4 font-medium uppercase tracking-wider">
-                                <MapPin size={12} /> {dest.state}
+                            <div className="flex items-center gap-1 text-[10px] text-gray-400 mb-2 font-medium uppercase tracking-wider">
+                                <MapPin size={10} /> {dest.state}
                             </div>
-                            <p className="text-xs text-gray-500 line-clamp-3 mb-4 flex-1">{dest.description}</p>
+                            <p className="text-[10px] md:text-xs text-gray-500 line-clamp-2 md:line-clamp-3 mb-2 flex-1">{dest.description}</p>
                         </div>
                     </div>
                 ))}
@@ -220,8 +220,8 @@ export default function DestinationsTab({ token }) {
 
             {/* Modal Overlay */}
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-                    <div className="w-full max-w-3xl max-h-[90vh] bg-card border border-border-custom rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden animate-in zoom-in-95 duration-200">
+                <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+                    <div className="w-full sm:max-w-3xl h-full sm:h-auto sm:max-h-[90vh] bg-card border border-border-custom sm:rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom-8 sm:zoom-in-95 duration-200">
                         <div className="flex items-center justify-between p-6 border-b border-border-custom shrink-0">
                             <h2 className="text-xl font-bold flex items-center gap-2">
                                 <MapIcon className="text-primary" size={20} />

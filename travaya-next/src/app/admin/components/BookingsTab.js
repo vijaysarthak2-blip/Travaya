@@ -85,25 +85,60 @@ export default function BookingsTab({ token }) {
                 onCancel={() => setConfirm({ open: false, id: null })}
             />
 
-            <div className="space-y-6 bg-card border border-border-custom rounded-[2.5rem] p-8 shadow-sm">
-                <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
-                    <div className="space-y-1">
-                        <h2 className="text-2xl font-black italic uppercase tracking-tighter">System <span className="text-primary not-italic font-bold">Bookings</span></h2>
+            <div className="space-y-4 md:space-y-6 bg-card border border-border-custom rounded-2xl md:rounded-[2.5rem] p-4 md:p-8 shadow-sm">
+                <div className="flex flex-col md:flex-row justify-between md:items-center gap-3">
+                    <div className="space-y-0.5">
+                        <h2 className="text-lg md:text-2xl font-black italic uppercase tracking-tighter">System <span className="text-primary not-italic font-bold">Bookings</span></h2>
                         <p className="text-xs text-gray-500 font-medium">Monitor all platform reservations ({bookings.length} total)</p>
                     </div>
-                    <div className="relative max-w-sm w-full">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <div className="relative w-full md:max-w-sm">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={15} />
                         <input
                             type="text"
                             placeholder="Search by ID, User, or Destination..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full bg-background border border-border-custom rounded-2xl pl-12 pr-4 py-3 text-sm focus:outline-none focus:border-primary transition-all"
+                            className="w-full bg-background border border-border-custom rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-all"
                         />
                     </div>
                 </div>
 
-                <div className="overflow-x-auto">
+                {/* Mobile card list */}
+                <div className="md:hidden space-y-3">
+                    {filteredBookings.length > 0 ? filteredBookings.map(booking => (
+                        <div key={booking._id} className="bg-background border border-border-custom rounded-2xl p-4 space-y-2.5">
+                            <div className="flex items-start justify-between gap-2">
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-1.5 mb-1">
+                                        <div className="p-1 bg-primary/10 rounded-md text-primary"><MapPin size={11}/></div>
+                                        <span className="font-bold text-sm truncate">{booking.destinationId?.name || 'Deleted'}</span>
+                                    </div>
+                                    <p className="text-xs text-gray-400 truncate">{booking.userId?.fullName || 'Unknown'}</p>
+                                    <p className="text-[10px] text-gray-500 truncate">{booking.userId?.email}</p>
+                                </div>
+                                <button
+                                    onClick={() => handleDeleteClick(booking._id)}
+                                    disabled={actionLoading === booking._id}
+                                    className="p-1.5 border border-red-500/30 text-red-500 rounded-lg hover:bg-red-500/10 transition-colors shrink-0"
+                                >
+                                    {actionLoading === booking._id ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
+                                </button>
+                            </div>
+                            <div className="flex items-center justify-between pt-1 border-t border-border-custom">
+                                <div className="flex items-center gap-3 text-[10px] text-gray-400 font-medium">
+                                    <span className="flex items-center gap-1"><Calendar size={11}/> {new Date(booking.date).toLocaleDateString()}</span>
+                                    <span className="flex items-center gap-1"><Users size={11}/> {booking.travelers}p</span>
+                                </div>
+                                <span className="text-xs font-black">₹{(booking.travelers * (booking.destinationId?.price || 0)).toLocaleString()}</span>
+                            </div>
+                        </div>
+                    )) : (
+                        <p className="py-8 text-center text-gray-500 text-sm">{search ? `No bookings match "${search}"` : 'No bookings found.'}</p>
+                    )}
+                </div>
+
+                {/* Desktop table */}
+                <div className="hidden md:block overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-border-custom text-xs text-gray-500 font-bold uppercase tracking-widest">

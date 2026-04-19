@@ -45,7 +45,7 @@ export default function AdminDashboard() {
 
     const fetchStats = async () => {
         setIsRefreshing(true);
-        if (!stats) setLoading(true); // only show hard load initially
+        if (!stats) setLoading(true);
         try {
             const res = await fetch(`${API_BASE}/api/admin/stats`, {
                 headers: { 'Authorization': `Bearer ${token}` }
@@ -74,37 +74,41 @@ export default function AdminDashboard() {
 
     const navItems = [
         { id: 'dashboard', label: 'Dashboard', icon: BarChart },
-        { id: 'users', label: 'Manage Users', icon: Users },
+        { id: 'users', label: 'Users', icon: Users },
         { id: 'destinations', label: 'Destinations', icon: MapIcon },
-        { id: 'bookings', label: 'All Bookings', icon: Ticket },
+        { id: 'bookings', label: 'Bookings', icon: Ticket },
     ];
 
     return (
-        <div className="min-h-screen bg-background pt-24 pb-12 px-6 md:px-12">
-            <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8">
+        <div className="min-h-screen bg-background pt-20 pb-10 px-3 md:px-8 lg:px-12">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
                 
-                {/* Sidebar */}
-                <div className="w-full md:w-64 shrink-0 space-y-6">
-                    <div className="space-y-1">
-                        <div className="flex items-center gap-2 text-primary font-bold text-xs uppercase tracking-widest">
-                            <ShieldAlert size={14} />
+                {/* Sidebar / Top-nav */}
+                <div className="w-full md:w-56 shrink-0 space-y-4">
+                    {/* Header */}
+                    <div className="space-y-0.5 px-1">
+                        <div className="flex items-center gap-1.5 text-primary font-bold text-[10px] uppercase tracking-widest">
+                            <ShieldAlert size={12} />
                             <span>Administrator</span>
                         </div>
-                        <h1 className="text-3xl font-black tracking-tighter uppercase italic">Control <span className="text-primary not-italic font-bold">Center</span></h1>
+                        <h1 className="text-xl md:text-2xl font-black tracking-tighter uppercase italic">
+                            Control <span className="text-primary not-italic font-bold">Center</span>
+                        </h1>
                     </div>
 
-                    <div className="flex text-sm md:flex-col gap-2 overflow-x-auto pb-4 md:pb-0 scrollbar-hide">
+                    {/* Tab Nav */}
+                    <div className="flex md:flex-col gap-1.5 overflow-x-auto pb-1 md:pb-0">
                         {navItems.map(item => (
                             <button
                                 key={item.id}
                                 onClick={() => setActiveTab(item.id)}
-                                className={`flex items-center gap-3 px-5 py-4 rounded-2xl font-bold transition-all whitespace-nowrap ${
+                                className={`flex items-center gap-2 px-3 md:px-4 py-2.5 md:py-3 rounded-xl font-bold transition-all whitespace-nowrap text-xs md:text-sm ${
                                     activeTab === item.id 
                                         ? 'bg-primary text-black shadow-lg shadow-primary/25' 
                                         : 'hover:bg-card text-gray-500 hover:text-foreground'
                                 }`}
                             >
-                                <item.icon size={20} />
+                                <item.icon size={16} />
                                 <span>{item.label}</span>
                             </button>
                         ))}
@@ -113,19 +117,20 @@ export default function AdminDashboard() {
 
                 {/* Main Content Area */}
                 <div className="flex-1 w-full min-w-0">
-                    <div className="flex justify-end mb-6">
+                    {/* Action buttons */}
+                    <div className="flex justify-end mb-4">
                         {activeTab === 'dashboard' && (
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
                                 <button 
                                     onClick={fetchStats}
-                                    className={`flex items-center gap-2 px-6 py-3 bg-card border border-border-custom rounded-2xl text-xs font-bold hover:border-primary transition-all shadow-sm ${isRefreshing ? 'opacity-50' : ''}`}
+                                    className={`flex items-center gap-1.5 px-3 md:px-5 py-2 bg-card border border-border-custom rounded-xl text-xs font-bold hover:border-primary transition-all shadow-sm ${isRefreshing ? 'opacity-50' : ''}`}
                                 >
-                                    <RefreshCcw size={16} className={isRefreshing ? 'animate-spin' : ''} />
-                                    <span className="hidden sm:inline">Refresh Data</span>
+                                    <RefreshCcw size={14} className={isRefreshing ? 'animate-spin' : ''} />
+                                    <span className="hidden sm:inline">Refresh</span>
                                 </button>
-                                <button className="flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-2xl text-xs font-bold hover:bg-primary-dark transition-all shadow-lg active:scale-95">
-                                    <Download size={16} />
-                                    <span className="hidden sm:inline">Export Report</span>
+                                <button className="flex items-center gap-1.5 px-3 md:px-5 py-2 bg-primary text-black rounded-xl text-xs font-bold hover:bg-primary-dark transition-all shadow-lg active:scale-95">
+                                    <Download size={14} />
+                                    <span className="hidden sm:inline">Export</span>
                                 </button>
                             </div>
                         )}

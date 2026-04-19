@@ -130,25 +130,78 @@ export default function UsersTab({ token }) {
                 onCancel={() => setRoleConfirm({ open: false, id: null, name: '', currentRole: '' })}
             />
 
-            <div className="space-y-6 bg-card border border-border-custom rounded-[2.5rem] p-8 shadow-sm">
-                <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
-                    <div className="space-y-1">
-                        <h2 className="text-2xl font-black italic uppercase tracking-tighter">Manage <span className="text-primary not-italic font-bold">Users</span></h2>
+        <div className="space-y-4 md:space-y-6 bg-card border border-border-custom rounded-2xl md:rounded-[2.5rem] p-4 md:p-8 shadow-sm">
+                <div className="flex flex-col md:flex-row justify-between md:items-center gap-3">
+                    <div className="space-y-0.5">
+                        <h2 className="text-lg md:text-2xl font-black italic uppercase tracking-tighter">Manage <span className="text-primary not-italic font-bold">Users</span></h2>
                         <p className="text-xs text-gray-500 font-medium">View and manage system personnel ({users.length} total)</p>
                     </div>
-                    <div className="relative max-w-sm w-full">
-                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                    <div className="relative w-full md:max-w-sm">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={15} />
                         <input
                             type="text"
                             placeholder="Search by name or email..."
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
-                            className="w-full bg-background border border-border-custom rounded-2xl pl-12 pr-4 py-3 text-sm focus:outline-none focus:border-primary transition-all"
+                            className="w-full bg-background border border-border-custom rounded-xl pl-10 pr-4 py-2.5 text-sm focus:outline-none focus:border-primary transition-all"
                         />
                     </div>
                 </div>
 
-                <div className="overflow-x-auto">
+                {/* Mobile card list */}
+                <div className="md:hidden space-y-3">
+                    {filteredUsers.length > 0 ? filteredUsers.map(user => (
+                        <div key={user._id} className="bg-background border border-border-custom rounded-2xl p-4 space-y-3">
+                            <div className="flex items-center justify-between gap-3">
+                                <div className="flex items-center gap-3 min-w-0">
+                                    <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center font-black text-primary italic shrink-0">
+                                        {user.fullName?.charAt(0)?.toUpperCase() || '?'}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <p className="font-bold text-sm truncate">{user.fullName}</p>
+                                        <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                                    </div>
+                                </div>
+                                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-lg shrink-0 ${user.role === 'admin' ? 'bg-primary/10 text-primary' : 'bg-gray-500/10 text-gray-400'}`}>
+                                    {user.role}
+                                </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                                {user.isEmailVerified ? (
+                                    <div className="flex items-center gap-1 text-xs text-green-500 font-bold">
+                                        <UserCheck size={12} /> Verified
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-1 text-xs text-yellow-500 font-bold">
+                                        <ShieldAlert size={12} /> Pending
+                                    </div>
+                                )}
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => handleRoleClick(user._id, user.fullName, user.role)}
+                                        disabled={actionLoading === user._id}
+                                        className="flex items-center gap-1 px-2.5 py-1.5 border border-border-custom rounded-lg hover:bg-card transition-colors text-[10px] font-bold disabled:opacity-50"
+                                    >
+                                        <Shield size={12} />
+                                        {user.role === 'admin' ? 'Demote' : 'Admin'}
+                                    </button>
+                                    <button
+                                        onClick={() => handleDeleteClick(user._id)}
+                                        disabled={actionLoading === user._id}
+                                        className="p-1.5 border border-red-500/30 text-red-500 rounded-lg hover:bg-red-500/10 transition-colors disabled:opacity-50"
+                                    >
+                                        {actionLoading === user._id ? <Loader2 size={13} className="animate-spin" /> : <Trash2 size={13} />}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )) : (
+                        <p className="py-8 text-center text-gray-500 text-sm">{search ? `No users match "${search}"` : 'No users found.'}</p>
+                    )}
+                </div>
+
+                {/* Desktop table */}
+                <div className="hidden md:block overflow-x-auto">
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-border-custom text-xs text-gray-500 font-bold uppercase tracking-widest">

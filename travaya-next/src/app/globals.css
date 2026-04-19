@@ -72,10 +72,14 @@ html, body {
 /* Prevent huge text blowing out mobile layout */
 @media (max-width: 640px) {
   h1, h2, h3 { word-break: break-word; }
+  /* Cap huge text classes on mobile */
   .text-6xl { font-size: 2.25rem !important; }
+  .text-7xl { font-size: 2.5rem !important; }
   .text-8xl { font-size: 2.75rem !important; }
   /* Prevent flex children from overflowing */
   .flex { min-width: 0; }
+  /* Reduce section padding */
+  section, .section { padding-left: 1rem; padding-right: 1rem; }
 }
 
 /* Portal dropdown gets a thin styled scrollbar */
