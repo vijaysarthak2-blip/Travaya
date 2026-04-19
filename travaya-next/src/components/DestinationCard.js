@@ -71,13 +71,15 @@ const DestinationCard = ({
         const fallback = "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80";
         if (!image && !name) return fallback;
 
-        // First: check by destination name (most reliable for seeded data on ephemeral servers)
+        // 1. Give highest priority to absolute HTTP URLs coming directly from the database
+        if (image && image.startsWith('http')) return image;
+
+        // 2. Curated fallback: check by destination name
         const nameLower = (name || '').toLowerCase().trim();
         const nameMatch = Object.keys(DESTINATION_IMAGES).find(k => nameLower.includes(k));
         if (nameMatch) return DESTINATION_IMAGES[nameMatch];
 
         if (!image) return fallback;
-        if (image.startsWith('http')) return image;
 
         // Local public assets
         const localAssets = ['jaipur.jpg', 'udaipur.jpg', 'hero.jpg', 'packages-hero.png', 'contact-hero.png'];
