@@ -403,28 +403,28 @@ export default function Profile() {
                                                     style={{ animationDelay: `${index * 100}ms` }}
                                                     className="group flex flex-col md:flex-row gap-8 p-10 bg-background/40 backdrop-blur-xl border border-border-custom rounded-[3rem] hover:border-primary/50 transition-all shadow-xl hover:-translate-y-1 duration-500 animate-in fade-in slide-in-from-bottom-8 fill-mode-both"
                                                 >
-                                                    <div className="w-full md:w-48 h-48 shrink-0 overflow-hidden rounded-[2.5rem] shadow-2xl relative">
-                                                        <img src={booking.destinationId?.image || '/hero.jpg'} alt="Trip" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                                    </div>
-                                                    <div className="flex-1 space-y-6">
-                                                        <div className="flex justify-between items-start">
-                                                            <div className="space-y-2">
-                                                                <div className="inline-flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-[0.3em]">
-                                                                     <MapPin size={12} />
-                                                                     <span>{booking.destinationId?.state}, India</span>
-                                                                </div>
-                                                                <h3 className="text-3xl font-black tracking-tighter uppercase italic leading-tight group-hover:text-primary transition-colors">{booking.destinationId?.name || 'Destination'}</h3>
-                                                            </div>
-                                                            <div className="text-right space-y-2">
-                                                                <div className="bg-primary/20 border border-primary/30 text-primary text-[10px] font-black italic px-4 py-2 rounded-2xl uppercase shadow-inner">
-                                                                    TRIP-{booking._id.substring(booking._id.length - 6).toUpperCase()}
-                                                                </div>
-                                                                <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest text-right">
-                                                                    Booked {new Date(booking.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                                                                </p>
-                                                            </div>
-                                                        </div>
+                                                     <div className="w-full md:w-48 h-48 shrink-0 overflow-hidden rounded-[2rem] shadow-2xl relative">
+                                                         <img src={booking.destinationId?.image || '/hero.jpg'} alt="Trip" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                                     </div>
+                                                     <div className="flex-1 min-w-0 space-y-4">
+                                                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2">
+                                                             <div className="space-y-1 min-w-0">
+                                                                 <div className="inline-flex items-center gap-2 text-primary font-black text-[10px] uppercase tracking-[0.3em]">
+                                                                      <MapPin size={12} />
+                                                                      <span className="truncate">{booking.destinationId?.state}, India</span>
+                                                                 </div>
+                                                                 <h3 className="text-2xl font-black tracking-tighter uppercase italic leading-tight group-hover:text-primary transition-colors truncate">{booking.destinationId?.name || 'Destination'}</h3>
+                                                             </div>
+                                                             <div className="flex flex-row sm:flex-col items-center sm:items-end gap-2 shrink-0">
+                                                                 <div className="bg-primary/20 border border-primary/30 text-primary text-[10px] font-black italic px-3 py-1.5 rounded-xl uppercase shadow-inner whitespace-nowrap">
+                                                                     TRIP-{booking._id.substring(booking._id.length - 6).toUpperCase()}
+                                                                 </div>
+                                                                 <p className="text-[9px] font-black text-gray-500 uppercase tracking-widest whitespace-nowrap">
+                                                                     Booked {new Date(booking.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                                                 </p>
+                                                             </div>
+                                                         </div>
                                                         
                                                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6 py-6 border-y border-border-custom">
                                                             <div className="space-y-1">

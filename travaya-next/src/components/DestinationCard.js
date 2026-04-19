@@ -25,24 +25,18 @@ const DestinationCard = ({
         if (!image) return fallback;
         if (image.startsWith('http')) return image;
         
-        // Known local assets in public folder
+        // Known local public folder assets
         const localAssets = ['jaipur.jpg', 'udaipur.jpg', 'hero.jpg', 'packages-hero.png', 'contact-hero.png'];
-        if (localAssets.includes(image)) {
-            return `/${image}`;
-        }
+        if (localAssets.includes(image)) return `/${image}`;
+        if (image.startsWith('/') && !image.startsWith('/uploads')) return image;
         
-        if (image.startsWith('/')) {
-            return image;
-        }
-        
-        // For seed data like "tirupati.jpg" that do not exist locally or on backend, 
-        // return the high-quality placeholder to prevent broken image icons.
-        return fallback;
+        // Backend upload (could be '/uploads/file.jpg' or just 'filename.jpg')
+        const baseUrl = API_BASE.replace(/\/$/, '');
+        const path = image.startsWith('/') ? image : `/uploads/${image}`;
+        return `${baseUrl}${path}`;
     }, [image]);
 
-    const isUnoptimized = useMemo(() => {
-        return normalizedImage.includes('localhost') || normalizedImage.includes('127.0.0.1');
-    }, [normalizedImage]);
+    const isUnoptimized = true; // Always unoptimized - external/backend images
 
     return (
         <div className={`group bg-card rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>

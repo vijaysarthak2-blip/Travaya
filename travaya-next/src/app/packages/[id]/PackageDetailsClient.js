@@ -323,7 +323,7 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                     </div>
 
                     {/* Right: The Boarding Pass Sidebar */}
-                    <aside className="lg:w-5/12 xl:w-4/12 animate-in slide-in-from-right-12 duration-1000">
+                    <aside className="lg:w-5/12 xl:w-4/12 animate-in slide-in-from-right-12 duration-1000 min-w-0 overflow-hidden">
                         <div className="sticky top-32 space-y-8">
                             
                             {/* The "Booking Voucher" */}
@@ -345,9 +345,9 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                                         
                                         <div className="space-y-1">
                                             <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest ml-1">Total Expedition Fee</p>
-                                            <div className="flex items-baseline gap-3">
-                                                <span className="text-6xl font-black italic tracking-tighter italic">{formatPrice(destination.price)}</span>
-                                                <span className="text-gray-500 font-bold uppercase text-[10px] tracking-widest">/ Per Head</span>
+                                            <div className="flex flex-col gap-1">
+                                                <span className="text-4xl md:text-6xl font-black italic tracking-tighter leading-tight">{formatPrice(destination.price)}</span>
+                                                <span className="text-gray-500 font-bold uppercase text-[10px] tracking-widest ml-1">/ Per Head</span>
                                             </div>
                                         </div>
                                     </div>
