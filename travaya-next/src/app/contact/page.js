@@ -90,7 +90,7 @@ export default function Contact() {
                         <MessageSquare size={14} />
                         <span>Get in Touch</span>
                     </div>
-                    <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                    <h1 className="text-3xl md:text-5xl lg:text-8xl font-black text-white tracking-tighter leading-none animate-in fade-in slide-in-from-bottom-8 duration-1000">
                         Let's Plan Your <span className="text-primary italic font-medium">Next Story</span>
                     </h1>
                     <p className="text-gray-300 max-w-xl mx-auto text-lg md:text-xl font-medium leading-relaxed opacity-90 animate-in fade-in slide-in-from-bottom-12 duration-1200">
@@ -106,7 +106,7 @@ export default function Contact() {
                         <div
                             key={i}
                             style={{ animationDelay: `${0.2 * i}s` }}
-                            className={`animate-in fade-in slide-in-from-bottom-10 duration-1000 bg-card/80 backdrop-blur-2xl border border-border-custom p-10 rounded-[3rem] shadow-2xl transition-all group hover:-translate-y-2 ${info.border}`}
+                            className={`animate-in fade-in slide-in-from-bottom-10 duration-1000 bg-card/80 backdrop-blur-2xl border border-border-custom p-6 md:p-10 rounded-2xl md:rounded-[3rem] shadow-2xl transition-all group hover:-translate-y-2 ${info.border}`}
                         >
                             <div className={`w-16 h-16 ${info.bg} ${info.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
                                 <info.icon size={32} />
@@ -125,7 +125,7 @@ export default function Contact() {
 
                     {/* Premium Contact Form */}
                     <div className="animate-in fade-in slide-in-from-left-10 duration-1000">
-                        <div className="bg-card border border-border-custom rounded-[4rem] p-10 md:p-16 shadow-2xl relative overflow-hidden group">
+                        <div className="bg-card border border-border-custom rounded-[2.5rem] md:rounded-[4rem] p-6 md:p-16 shadow-2xl relative overflow-hidden group">
                             {/* Success Overlay */}
                             {isSuccess && (
                                 <div className="absolute inset-0 z-20 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center p-12 text-center animate-in fade-in zoom-in duration-500">
@@ -242,7 +242,7 @@ export default function Contact() {
                     {/* Content Section / Decorative */}
                     <div className="pt-12 space-y-16 animate-in fade-in slide-in-from-right-10 duration-1200">
                         <div className="space-y-8">
-                            <h2 className="text-4xl md:text-5xl font-black tracking-tighter italic">Why Choose <span className="text-primary underline decoration-primary/30 underline-offset-8">Travaya?</span></h2>
+                            <h2 className="text-3xl md:text-5xl font-black tracking-tighter italic">Why Choose <span className="text-primary underline decoration-primary/30 underline-offset-8">Travaya?</span></h2>
                             <p className="text-gray-500 text-xl font-medium leading-relaxed max-w-lg">
                                 We believe travel is the only thing you buy that makes you richer. 
                                 Our mission is to transform your vision into a reality that exceeds your wildest expectations.

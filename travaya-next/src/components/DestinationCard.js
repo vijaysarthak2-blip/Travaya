@@ -21,29 +21,29 @@ const DestinationCard = ({
 
     // Curated fallback images mapped by destination name
     const DESTINATION_IMAGES = {
-        'jaipur': 'https://images.unsplash.com/photo-1477587458883-47145ed68045?w=800&q=80',
-        'manali': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80',
-        'goa': 'https://images.unsplash.com/photo-1587922546307-776227941871?w=800&q=80',
-        'kerala': 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800&q=80',
-        'udaipur': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80',
-        'rishikesh': 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=800&q=80',
-        'leh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=800&q=80',
-        'ladakh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=800&q=80',
-        'varanasi': 'https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=800&q=80',
-        'agra': 'https://images.unsplash.com/photo-1587295656906-b7aebacce58b?w=800&q=80',
-        'darjeeling': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
-        'mysore': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=800&q=80',
-        'mysuru': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=800&q=80',
-        'ooty': 'https://images.unsplash.com/photo-1609066861859-0fc70a24a2d6?w=800&q=80',
-        'coorg': 'https://images.unsplash.com/photo-1592364395653-83e648b20cc2?w=800&q=80',
-        'andaman': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
-        'shimla': 'https://images.unsplash.com/photo-1597006819268-4b68c7d6b82f?w=800&q=80',
-        'mussoorie': 'https://images.unsplash.com/photo-1608831609427-95d2b0eddaab?w=800&q=80',
-        'tirupati': 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=800&q=80',
-        'amritsar': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=800&q=80',
-        'hampi': 'https://images.unsplash.com/photo-1600182610361-4b4d664e79dd?w=800&q=80',
-        'spiti': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
-        'munnar': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80',
+        'jaipur': 'https://images.unsplash.com/photo-1477587458883-47145ed68045?w=600&q=75',
+        'manali': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=600&q=75',
+        'goa': 'https://images.unsplash.com/photo-1587922546307-776227941871?w=600&q=75',
+        'kerala': 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=600&q=75',
+        'udaipur': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=600&q=75',
+        'rishikesh': 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=600&q=75',
+        'leh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=600&q=75',
+        'ladakh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=600&q=75',
+        'varanasi': 'https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=600&q=75',
+        'agra': 'https://images.unsplash.com/photo-1587295656906-b7aebacce58b?w=600&q=75',
+        'darjeeling': 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=75',
+        'mysore': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=600&q=75',
+        'mysuru': 'https://images.unsplash.com/photo-1580757468214-c73f7062a5cb?w=600&q=75',
+        'ooty': 'https://images.unsplash.com/photo-1609066861859-0fc70a24a2d6?w=600&q=75',
+        'coorg': 'https://images.unsplash.com/photo-1592364395653-83e648b20cc2?w=600&q=75',
+        'andaman': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=75',
+        'shimla': 'https://images.unsplash.com/photo-1597006819268-4b68c7d6b82f?w=600&q=75',
+        'mussoorie': 'https://images.unsplash.com/photo-1608831609427-95d2b0eddaab?w=600&q=75',
+        'tirupati': 'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&q=75',
+        'amritsar': 'https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=600&q=75',
+        'hampi': 'https://images.unsplash.com/photo-1600182610361-4b4d664e79dd?w=600&q=75',
+        'spiti': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=75',
+        'munnar': 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=600&q=75',
     };
 
     // Normalize Image Source
@@ -70,18 +70,16 @@ const DestinationCard = ({
         return `${baseUrl}${path}`;
     }, [image, name]);
 
-    const isUnoptimized = true;
-
     return (
-        <div className={`group bg-card rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>
+        <div className={`group bg-card rounded-2xl md:rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>
             {/* Image Container */}
-            <div className={`relative overflow-hidden ${isList ? 'w-full md:w-[400px] shrink-0 h-64 md:h-auto rounded-t-[2.5rem] md:rounded-l-[2.5rem] md:rounded-tr-none' : 'h-72 rounded-t-[2.5rem]'} will-change-contents`}>
+            <div className={`relative overflow-hidden ${isList ? 'w-full md:w-[400px] shrink-0 h-48 md:h-auto rounded-t-2xl md:rounded-l-[2.5rem] md:rounded-tr-none' : 'h-52 md:h-72 rounded-t-2xl md:rounded-t-[2.5rem]'} will-change-contents`}>
                 <Image 
                     src={normalizedImage} 
                     alt={name}
                     fill
-                    unoptimized={isUnoptimized}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    unoptimized
+                    sizes="(max-width: 640px) 95vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-110 will-change-[transform,opacity]"
                 />
                 
@@ -111,10 +109,10 @@ const DestinationCard = ({
                         if (!user) { window.location.href = '/login'; return; }
                         toggleWishlist({ id, name, state, price, image });
                     }}
-                    className={`absolute top-6 right-6 p-3 backdrop-blur-md border rounded-2xl transition-all transform duration-300 ${
+                    className={`absolute top-3 right-3 md:top-6 md:right-6 p-2.5 md:p-3 backdrop-blur-md border rounded-xl md:rounded-2xl transition-all transform duration-300 ${
                         liked
                             ? 'bg-red-500 border-red-500 text-white scale-110 opacity-100'
-                            : 'bg-white/10 border-white/20 text-white opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 hover:bg-red-500 hover:border-red-500'
+                            : 'bg-white/10 border-white/20 text-white opacity-60 md:opacity-0 group-hover:opacity-100 md:translate-y-4 group-hover:translate-y-0 hover:bg-red-500 hover:border-red-500'
                     }`}
                     aria-label={liked ? 'Remove from wishlist' : 'Save to wishlist'}
                 >
@@ -123,7 +121,7 @@ const DestinationCard = ({
             </div>
 
             {/* Content Container */}
-            <div className={`p-8 flex-1 flex flex-col ${isList ? 'justify-between' : ''}`}>
+            <div className={`p-4 md:p-8 flex-1 flex flex-col ${isList ? 'justify-between' : ''}`}>
                 <div className="space-y-4">
                     <div className="flex justify-between items-start">
                         <div className="flex items-center gap-2 text-primary text-[10px] font-black uppercase tracking-[0.3em] animate-in fade-in duration-500">
@@ -136,36 +134,36 @@ const DestinationCard = ({
                         </div>
                     </div>
 
-                    <h3 className={`font-black group-hover:text-primary transition-colors tracking-tighter leading-tight uppercase italic ${isList ? 'text-4xl' : 'text-2xl'} duration-300`}>
+                    <h3 className={`font-black group-hover:text-primary transition-colors tracking-tighter leading-tight uppercase italic ${isList ? 'text-2xl md:text-4xl' : 'text-lg md:text-2xl'} duration-300`}>
                         {name}
                     </h3>
                     
-                    <p className={`text-gray-500 leading-relaxed font-medium opacity-80 group-hover:opacity-100 transition-opacity ${isList ? 'text-lg line-clamp-3' : 'text-sm line-clamp-2'} duration-300`}>
+                    <p className={`text-gray-500 leading-relaxed font-medium opacity-80 group-hover:opacity-100 transition-opacity ${isList ? 'text-base md:text-lg line-clamp-3' : 'text-xs md:text-sm line-clamp-2'} duration-300`}>
                         {description || "Experience the magical blend of heritage, nature, and adventure in this curated destination."}
                     </p>
                 </div>
 
-                <div className={`flex items-center flex-wrap gap-4 mt-8 pt-6 border-t border-border-custom ${isList ? 'justify-between' : 'justify-between'}`}>
-                    <div className="space-y-1">
-                        <p className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Base Fee</p>
+                <div className={`flex items-center flex-wrap gap-2 md:gap-4 mt-4 md:mt-8 pt-4 md:pt-6 border-t border-border-custom ${isList ? 'justify-between' : 'justify-between'}`}>
+                    <div className="space-y-0.5">
+                        <p className="text-[9px] md:text-[10px] font-black text-gray-500 uppercase tracking-widest">Base Fee</p>
                         <div className="flex items-baseline gap-1">
-                            <span className="text-2xl font-black italic tracking-tighter">{formatPrice(price)}</span>
+                            <span className="text-lg md:text-2xl font-black italic tracking-tighter">{formatPrice(price)}</span>
                             <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest">/ pp</span>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-4 text-gray-400">
-                        <div className="flex items-center gap-2 px-4 py-2 bg-background border border-border-custom rounded-xl transition-colors duration-300">
-                            <Clock size={16} className="text-primary" />
-                            <span className="text-[10px] font-black uppercase tracking-tighter">{duration}</span>
+                    <div className="flex items-center gap-2 md:gap-4 text-gray-400">
+                        <div className="hidden sm:flex items-center gap-2 px-3 py-2 bg-background border border-border-custom rounded-xl transition-colors duration-300">
+                            <Clock size={14} className="text-primary" />
+                            <span className="text-[9px] font-black uppercase tracking-tighter">{duration}</span>
                         </div>
                         
                         <Link 
                             href={`/packages/${id}`}
-                            className="flex items-center gap-3 bg-primary hover:bg-black hover:text-primary text-black px-6 py-3 rounded-2xl font-black uppercase tracking-tighter text-[10px] transition-all group/link shadow-xl shadow-primary/10 duration-300"
+                            className="flex items-center gap-2 bg-primary hover:bg-black hover:text-primary text-black px-4 md:px-6 py-2.5 md:py-3 rounded-xl md:rounded-2xl font-black uppercase tracking-tighter text-[9px] md:text-[10px] transition-all group/link shadow-xl shadow-primary/10 duration-300"
                         >
-                            <span>Initialize</span>
-                            <ArrowRight size={16} className="transition-transform group-hover/link:translate-x-1" />
+                            <span>Explore</span>
+                            <ArrowRight size={14} className="transition-transform group-hover/link:translate-x-1" />
                         </Link>
                     </div>
                 </div>

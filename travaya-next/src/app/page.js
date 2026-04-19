@@ -55,7 +55,7 @@ export default function Home() {
                             <span>Your Journey Begins Here</span>
                         </div>
                         {/* Headline */}
-                        <h1 className="animate-hero-title text-5xl md:text-7xl font-bold text-white tracking-tighter">
+                        <h1 className="animate-hero-title text-4xl md:text-5xl lg:text-7xl font-bold text-white tracking-tighter">
                             Discover Your Next <br />
                             <span className="text-primary italic">Great Adventure</span>
                         </h1>
@@ -100,7 +100,7 @@ export default function Home() {
                             <TrendingUp size={16} />
                             <span>Popular Choice</span>
                         </div>
-                        <h2 className="text-4xl font-bold">Recommended for You</h2>
+                        <h2 className="text-2xl md:text-4xl font-bold">Recommended for You</h2>
                         <p className="text-gray-500 max-w-md">
                             Handpicked destinations that travelers love the most this season.
                         </p>

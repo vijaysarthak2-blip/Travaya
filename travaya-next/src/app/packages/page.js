@@ -156,7 +156,7 @@ export default function Packages() {
                          {/* Subtle Localized Backdrop */}
                          <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-background/40 to-primary/10 backdrop-blur-3xl rounded-[3rem] border border-white/5 opacity-40 group-hover:opacity-60 transition-opacity" />
                          
-                         <h1 className="relative z-10 text-7xl md:text-[10rem] font-black tracking-[0.05em] leading-[0.9] animate-in fade-in slide-in-from-top-8 duration-1000 uppercase text-center">
+                         <h1 className="relative z-10 text-5xl md:text-7xl lg:text-[10rem] font-black tracking-[0.05em] leading-[0.9] animate-in fade-in slide-in-from-top-8 duration-1000 uppercase text-center">
                              <span className="text-white drop-shadow-2xl">Master</span>
                              <br />
                              <span className="text-primary italic drop-shadow-2xl brightness-125">Voyages</span>
@@ -170,7 +170,7 @@ export default function Packages() {
                          </div>
                     </div>
 
-                    <p className="text-gray-300 max-w-3xl mx-auto text-xl md:text-2xl font-medium leading-relaxed opacity-90 animate-in fade-in slide-in-from-bottom-12 duration-1200">
+                    <p className="text-gray-300 max-w-3xl mx-auto text-base md:text-xl font-medium leading-relaxed opacity-90 animate-in fade-in slide-in-from-bottom-12 duration-1200">
                         Curated expeditions through the heart of the subcontinent. Every trail is a legacy in the making.
                     </p>
                 </div>
@@ -182,32 +182,32 @@ export default function Packages() {
             <div className="max-w-7xl mx-auto px-6 -mt-24 relative z-30 space-y-12">
                 
                 {/* Search & Control Station */}
-                <div className="bg-card/40 backdrop-blur-3xl border border-border-custom rounded-[3.5rem] shadow-2xl p-6 md:p-10 space-y-8 animate-in fade-in zoom-in duration-1000">
+                <div className="bg-card/40 backdrop-blur-3xl border border-border-custom rounded-2xl md:rounded-[3.5rem] shadow-2xl p-4 md:p-10 space-y-5 md:space-y-8 animate-in fade-in zoom-in duration-1000">
                     <div className="flex flex-col md:flex-row gap-8 items-center">
                         <div className="relative flex-1 group w-full">
                             <Search className="absolute left-7 top-1/2 -translate-y-1/2 text-primary group-focus-within:scale-110 transition-transform" size={24} />
                             <input 
                                 type="text" 
-                                placeholder="Search by destination, state, or vibe..."
+                                placeholder="Search destination or state..."
                                 value={searchQuery}
                                 onChange={(e) => {
                                     setSearchQuery(e.target.value);
                                     setVisibleCount(15);
                                 }}
-                                className="w-full bg-background/50 border border-border-custom pl-16 pr-8 py-6 rounded-3xl focus:ring-8 focus:ring-primary/5 focus:border-primary outline-none transition-all text-xl font-bold placeholder:text-gray-500 placeholder:uppercase placeholder:tracking-widest placeholder:text-[10px]"
+                                className="w-full bg-background/50 border border-border-custom pl-14 pr-6 py-4 md:py-6 rounded-2xl md:rounded-3xl focus:ring-4 focus:ring-primary/5 focus:border-primary outline-none transition-all text-sm md:text-xl font-bold placeholder:text-gray-500 placeholder:uppercase placeholder:tracking-wider placeholder:text-[9px]"
                             />
                         </div>
                         
-                        <div className="flex items-center gap-4 w-full md:w-auto">
+                        <div className="flex items-center gap-3 w-full md:w-auto">
                             {/* Mobile Filter Toggle */}
                             <button
                                 onClick={() => setShowMobileFilters(true)}
-                                className="lg:hidden flex items-center gap-2 px-4 py-3 bg-card/50 border border-border-custom rounded-2xl font-black uppercase tracking-widest text-xs hover:border-primary/50 transition-all"
+                                className="lg:hidden flex items-center gap-1.5 px-3 py-2.5 bg-card/50 border border-border-custom rounded-xl font-black uppercase tracking-widest text-[9px] hover:border-primary/50 transition-all"
                             >
-                                <SlidersHorizontal size={16} className="text-primary" />
+                                <SlidersHorizontal size={14} className="text-primary" />
                                 <span>Filters</span>
                             </button>
-                            <div className="w-full md:w-64">
+                            <div className="flex-1 md:w-64">
                                 <CustomDropdown 
                                     value={sortBy}
                                     onChange={setSortBy}
@@ -228,10 +228,10 @@ export default function Packages() {
                     </div>
 
                     <div className="flex flex-wrap items-center justify-between gap-6 pt-6 border-t border-border-custom/50">
-                        <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-3 px-5 py-2 bg-background/40 border border-border-custom rounded-2xl">
+                        <div className="flex items-center gap-3 flex-wrap">
+                            <div className="flex items-center gap-3 px-4 py-2 bg-background/40 border border-border-custom rounded-2xl">
                                 <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Live: <span className="text-foreground">{filteredDestinations.length}</span> Horizons Found</span>
+                                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Live: <span className="text-foreground">{filteredDestinations.length}</span> Horizons Found</span>
                             </div>
                             <div className="hidden lg:flex items-center gap-3 text-gray-400 text-[10px] font-black uppercase tracking-widest">
                                 <Tag size={14} className="text-primary" />
@@ -445,14 +445,15 @@ export default function Packages() {
                                 )}
                             </div>
                         ) : (
-                            <div className="bg-card/40 backdrop-blur-2xl border border-border-custom rounded-[4rem] p-24 text-center flex flex-col items-center gap-10 animate-in zoom-in duration-700">
-                                <div className="w-40 h-40 bg-primary/10 text-primary rounded-[3rem] flex items-center justify-center relative shadow-2xl">
-                                    <Compass size={80} className="animate-[spin_15s_linear_infinite] opacity-50" />
+                            <div className="bg-card/40 backdrop-blur-2xl border border-border-custom rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-24 text-center flex flex-col items-center gap-6 md:gap-10 animate-in zoom-in duration-700">
+                                <div className="w-24 md:w-40 h-24 md:h-40 bg-primary/10 text-primary rounded-[2rem] md:rounded-[3rem] flex items-center justify-center relative shadow-2xl">
+                                    <Compass size={48} className="animate-[spin_15s_linear_infinite] opacity-50 md:hidden" />
+                                    <Compass size={80} className="animate-[spin_15s_linear_infinite] opacity-50 hidden md:block" />
                                     <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl animate-pulse" />
                                 </div>
-                                <div className="space-y-4">
-                                    <h3 className="text-4xl font-black tracking-tighter uppercase italic">No Trails Detected</h3>
-                                    <p className="text-gray-500 max-w-sm mx-auto leading-relaxed font-medium text-lg">
+                                <div className="space-y-3">
+                                    <h3 className="text-2xl md:text-4xl font-black tracking-tighter uppercase italic">No Trails Detected</h3>
+                                    <p className="text-gray-500 max-w-sm mx-auto leading-relaxed font-medium text-base md:text-lg">
                                         The expedition coordinates you provided yielded no matches in our current discovery database.
                                     </p>
                                 </div>

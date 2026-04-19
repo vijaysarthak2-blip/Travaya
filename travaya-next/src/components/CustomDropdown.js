@@ -20,19 +20,25 @@ export default function CustomDropdown({
 
     useEffect(() => { setIsMounted(true); }, []);
 
-    // Position the portal dropdown under the button
+    // Position the portal dropdown under/above the button
     useEffect(() => {
         if (isOpen && buttonRef.current) {
             const rect = buttonRef.current.getBoundingClientRect();
-            const spaceBelow = window.innerHeight - rect.bottom;
-            const menuHeight = Math.min(220, spaceBelow - 8);
+            const spaceBelow = window.innerHeight - rect.bottom - 8;
+            const spaceAbove = rect.top - 8;
+            // Flip upward if not enough room below
+            const openUpward = spaceBelow < 160 && spaceAbove > spaceBelow;
+            const menuHeight = openUpward
+                ? Math.min(260, spaceAbove)
+                : Math.min(260, spaceBelow);
             setDropdownStyle({
                 position: 'fixed',
-                top: rect.bottom + window.scrollY + 4,
-                left: align === 'right' ? 'auto' : rect.left + window.scrollX,
-                right: align === 'right' ? window.innerWidth - rect.right - window.scrollX : 'auto',
+                top: openUpward ? 'auto' : rect.bottom + 4,
+                bottom: openUpward ? window.innerHeight - rect.top + 4 : 'auto',
+                left: align === 'right' ? 'auto' : rect.left,
+                right: align === 'right' ? window.innerWidth - rect.right : 'auto',
                 width: rect.width,
-                maxHeight: menuHeight,
+                maxHeight: Math.max(menuHeight, 120),
                 overflowY: 'auto',
                 zIndex: 9999,
             });

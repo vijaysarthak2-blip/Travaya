@@ -174,7 +174,7 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                              <MapPin size={16} className="text-primary" />
                              <span>{destination.state}, Northern India</span>
                          </div>
-                         <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none italic uppercase">
+                         <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white tracking-tighter leading-none italic uppercase">
                              {destination.name}
                          </h1>
                     </div>
@@ -189,14 +189,14 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                     <div className="lg:w-7/12 xl:w-8/12 space-y-12">
                         
                         {/* Luxury Metadata Bar */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-card/60 backdrop-blur-3xl border border-border-custom rounded-[2.5rem] shadow-2xl animate-in fade-in zoom-in duration-1000">
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3 md:p-4 bg-card/60 backdrop-blur-3xl border border-border-custom rounded-2xl md:rounded-[2.5rem] shadow-2xl animate-in fade-in zoom-in duration-1000">
                             {[
                                 { icon: Clock, label: "Duration", val: "3D/2N", color: "text-primary" },
                                 { icon: Star, label: "Rating", val: "4.9 · 120", color: "text-secondary" },
                                 { icon: Users, label: "Expedition", val: "12 Max", color: "text-blue-500" },
                                 { icon: ShieldCheck, label: "Safety", val: "Gold Std", color: "text-green-500" }
                             ].map((stat, i) => (
-                                <div key={stat.label} className="flex flex-col items-center justify-center p-6 bg-background/40 rounded-[2rem] border border-border-custom text-center space-y-2">
+                                <div key={stat.label} className="flex flex-col items-center justify-center p-4 md:p-6 bg-background/40 rounded-xl md:rounded-[2rem] border border-border-custom text-center space-y-1.5">
                                     <div className={`p-3 rounded-2xl bg-white/5 ${stat.color}`}>
                                         <stat.icon size={20} />
                                     </div>
@@ -247,29 +247,33 @@ export default function PackageDetailsClient({ initialDestination, initialItiner
                                     <p className="text-gray-500 font-medium ml-12 uppercase tracking-widest text-[10px]">Step-by-step expedition protocol</p>
                                 </div>
 
-                                <div className="space-y-12 ml-6 border-l-2 border-dashed border-border-custom pl-12 relative">
+                                <div className="relative space-y-8 pl-6 sm:pl-0 sm:ml-6 sm:border-l-2 sm:border-dashed sm:border-border-custom sm:pl-12">
                                     {itinerary.days.map((day, index) => (
                                         <div key={index} className="relative group">
-                                            {/* Pulsing Node */}
-                                            <div className="absolute -left-[64px] top-6 w-12 h-12 rounded-3xl bg-card border-4 border-background flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                                            {/* Node — absolutely positioned left on sm+ */}
+                                            <div className="hidden sm:flex absolute -left-[64px] top-6 w-12 h-12 rounded-3xl bg-card border-4 border-background items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
                                                  <div className="absolute inset-0 bg-primary/20 rounded-full blur animate-pulse" />
                                                  <span className="relative z-10 font-black text-primary text-xs italic">D{day.day}</span>
                                             </div>
+                                            {/* Mobile inline day badge */}
+                                            <div className="sm:hidden flex items-center gap-2 mb-3">
+                                                <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/15 text-primary font-black text-xs italic">Day {day.day}</span>
+                                            </div>
                                             
-                                            <div className="p-8 md:p-12 bg-card/30 backdrop-blur-xl border border-border-custom rounded-[3rem] hover:border-primary/30 transition-all shadow-xl space-y-6 group/item overflow-hidden relative">
+                                            <div className="p-6 md:p-12 bg-card/30 backdrop-blur-xl border border-border-custom rounded-2xl md:rounded-[3rem] hover:border-primary/30 transition-all shadow-xl space-y-4 md:space-y-6 group/item overflow-hidden relative">
                                                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover/item:bg-primary/10 transition-colors" />
                                                 
-                                                <div className="space-y-2 relative z-10">
+                                                <div className="space-y-1 relative z-10">
                                                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary italic">Protocol Stage {index + 1}</p>
-                                                    <h3 className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic">{day.title}</h3>
+                                                    <h3 className="text-xl md:text-3xl font-black tracking-tighter uppercase italic">{day.title}</h3>
                                                 </div>
                                                 <p className="text-gray-500 leading-relaxed font-medium relative z-10 group-hover/item:text-foreground transition-colors">
                                                     {day.description}
                                                 </p>
                                                 
-                                                <div className="pt-6 flex gap-4 relative z-10">
-                                                     <div className="px-5 py-2 bg-background border border-border-custom rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-500">Morning Trials</div>
-                                                     <div className="px-5 py-2 bg-background border border-border-custom rounded-xl text-[10px] font-black uppercase tracking-widest text-gray-500">Afternoon Discovery</div>
+                                                <div className="pt-4 flex gap-3 relative z-10 flex-wrap">
+                                                     <div className="px-4 py-2 bg-background border border-border-custom rounded-xl text-[9px] font-black uppercase tracking-widest text-gray-500">Morning Trials</div>
+                                                     <div className="px-4 py-2 bg-background border border-border-custom rounded-xl text-[9px] font-black uppercase tracking-widest text-gray-500">Afternoon Discovery</div>
                                                 </div>
                                             </div>
                                         </div>
