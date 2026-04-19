@@ -62,7 +62,7 @@ router.get("/google", passport.authenticate("google", { scope: ["profile", "emai
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login.html?error=google-auth-failed" }),
+  passport.authenticate("google", { failureRedirect: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/login?error=google-auth-failed` }),
   authController.googleCallback
 );
 
