@@ -84,27 +84,47 @@ export default function AdminDashboard() {
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
                 
                 {/* Sidebar / Top-nav */}
-                <div className="w-full md:w-56 shrink-0 space-y-4">
-                    {/* Header */}
-                    <div className="space-y-0.5 px-1">
-                        <div className="flex items-center gap-1.5 text-primary font-bold text-[10px] uppercase tracking-widest">
-                            <ShieldAlert size={12} />
-                            <span>Administrator</span>
+                <div className="w-full md:w-56 shrink-0">
+                    {/* Header — only visible text, tighter on mobile */}
+                    <div className="flex items-center justify-between mb-3 md:mb-4 md:flex-col md:items-start md:gap-0.5 px-1">
+                        <div>
+                            <div className="flex items-center gap-1.5 text-primary font-bold text-[10px] uppercase tracking-widest">
+                                <ShieldAlert size={11} />
+                                <span>Administrator</span>
+                            </div>
+                            <h1 className="text-base md:text-2xl font-black tracking-tighter uppercase italic leading-tight">
+                                Control <span className="text-primary not-italic font-bold">Center</span>
+                            </h1>
                         </div>
-                        <h1 className="text-xl md:text-2xl font-black tracking-tighter uppercase italic">
-                            Control <span className="text-primary not-italic font-bold">Center</span>
-                        </h1>
                     </div>
 
-                    {/* Tab Nav */}
-                    <div className="flex md:flex-col gap-1.5 overflow-x-auto pb-1 md:pb-0">
+                    {/* Mobile: segmented pill strip inside a card */}
+                    <div className="md:hidden bg-card border border-border-custom rounded-2xl p-1.5 flex gap-1 overflow-x-auto">
                         {navItems.map(item => (
                             <button
                                 key={item.id}
                                 onClick={() => setActiveTab(item.id)}
-                                className={`flex items-center gap-2 px-3 md:px-4 py-2.5 md:py-3 rounded-xl font-bold transition-all whitespace-nowrap text-xs md:text-sm ${
-                                    activeTab === item.id 
-                                        ? 'bg-primary text-black shadow-lg shadow-primary/25' 
+                                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl font-bold transition-all whitespace-nowrap text-[11px] flex-1 justify-center ${
+                                    activeTab === item.id
+                                        ? 'bg-primary text-black shadow-md shadow-primary/30'
+                                        : 'text-gray-400 hover:text-foreground hover:bg-background'
+                                }`}
+                            >
+                                <item.icon size={13} />
+                                <span>{item.label}</span>
+                            </button>
+                        ))}
+                    </div>
+
+                    {/* Desktop: vertical sidebar list */}
+                    <div className="hidden md:flex flex-col gap-1">
+                        {navItems.map(item => (
+                            <button
+                                key={item.id}
+                                onClick={() => setActiveTab(item.id)}
+                                className={`flex items-center gap-2 px-4 py-3 rounded-xl font-bold transition-all text-sm ${
+                                    activeTab === item.id
+                                        ? 'bg-primary text-black shadow-lg shadow-primary/25'
                                         : 'hover:bg-card text-gray-500 hover:text-foreground'
                                 }`}
                             >
