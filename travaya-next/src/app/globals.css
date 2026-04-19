@@ -63,6 +63,24 @@ body {
   /* Chrome, Safari, Opera */
 }
 
+/* ── Global Mobile Fixes ── */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Prevent huge text blowing out mobile layout */
+@media (max-width: 640px) {
+  h1, h2, h3 { word-break: break-word; }
+  .text-6xl { font-size: 2.5rem !important; }
+  .text-8xl { font-size: 3rem !important; }
+}
+
+/* Portal dropdown gets a thin styled scrollbar */
+[data-portal-dropdown]::-webkit-scrollbar { display: block; width: 4px; }
+[data-portal-dropdown]::-webkit-scrollbar-track { background: transparent; }
+[data-portal-dropdown]::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
 @keyframes footer-float {
 
   0%,

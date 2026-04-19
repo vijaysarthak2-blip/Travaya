@@ -149,7 +149,7 @@ function BookingForm() {
     }
 
     return (
-        <div className="min-h-screen bg-background pt-32 pb-24 px-6">
+        <div className="min-h-screen bg-background pt-24 md:pt-32 pb-24 px-4 md:px-6">
             <div className="max-w-5xl mx-auto mb-10 space-y-6">
                  <button 
                     onClick={() => router.back()}
@@ -167,13 +167,30 @@ function BookingForm() {
                 </div>
             </div>
 
-            <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-start">
                 {/* Left: Summary Card */}
-                <div className="lg:col-span-2 sticky top-32">
+                <div className="lg:col-span-2 lg:sticky lg:top-32">
                     {destination && (
                         <div className="bg-card border border-border-custom rounded-[2rem] shadow-2xl overflow-hidden p-3 relative group">
                             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                            <img src={destination.image} alt={destination.name} className="w-full h-56 object-cover rounded-[1.5rem]" />
+                            <img
+                                src={{
+                                    'jaipur': 'https://images.unsplash.com/photo-1477587458883-47145ed68045?w=800&q=80',
+                                    'manali': 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?w=800&q=80',
+                                    'goa': 'https://images.unsplash.com/photo-1587922546307-776227941871?w=800&q=80',
+                                    'kerala': 'https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=800&q=80',
+                                    'udaipur': 'https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&q=80',
+                                    'rishikesh': 'https://images.unsplash.com/photo-1585128792020-803d29415281?w=800&q=80',
+                                    'ladakh': 'https://images.unsplash.com/photo-1626015366386-acca87a74b53?w=800&q=80',
+                                    'varanasi': 'https://images.unsplash.com/photo-1561361058-c24cecae35ca?w=800&q=80',
+                                    'andaman': 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&q=80',
+                                    'shimla': 'https://images.unsplash.com/photo-1597006819268-4b68c7d6b82f?w=800&q=80',
+                                }[Object.keys({'jaipur':1,'manali':1,'goa':1,'kerala':1,'udaipur':1,'rishikesh':1,'ladakh':1,'varanasi':1,'andaman':1,'shimla':1}).find(k => (destination.name||'').toLowerCase().includes(k))] ||
+                                (destination.image?.startsWith('http') && !destination.image?.includes('localhost') ? destination.image : null) ||
+                                'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80'}
+                                alt={destination.name}
+                                className="w-full h-48 md:h-56 object-cover rounded-[1.5rem]"
+                            />
                             <div className="p-6 space-y-4">
                                 <h3 className="font-black text-3xl uppercase italic tracking-tighter">{destination.name}</h3>
                                 <div className="flex items-center gap-2 text-gray-400 font-bold text-sm uppercase tracking-widest">
