@@ -1,0 +1,53 @@
+services:
+  # 1. Travaya Backend (Node.js)
+  - type: web
+    name: travaya-backend
+    env: node
+    rootDir: travaya-backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 18.0.0
+      - key: DB_URL
+        sync: false # Set this in Render Dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        fromService:
+          type: web
+          name: travaya-frontend
+          property: url
+
+  # 2. Travaya AI (Python/Flask)
+  - type: web
+    name: travaya-ai
+    env: python
+    rootDir: AI
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn main:app
+    envVars:
+      - key: CORS_ORIGIN
+        fromService:
+          type: web
+          name: travaya-frontend
+          property: url
+
+  # 3. Travaya Frontend (Next.js)
+  - type: web
+    name: travaya-frontend
+    env: node
+    rootDir: travaya-next
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        fromService:
+          type: web
+          name: travaya-backend
+          property: url
+      - key: NEXT_PUBLIC_AI_API_BASE
+        fromService:
+          type: web
+          name: travaya-ai
+          property: url
