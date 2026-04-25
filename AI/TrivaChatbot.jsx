@@ -5,7 +5,7 @@
 
 import { useState, useRef, useEffect } from "react";
 
-const API   = "http://localhost:5001/api";
+const API = process.env.NEXT_PUBLIC_AI_API_BASE || "http://localhost:5001/api";
 const WELCOME = {
   id: 0, role: "bot", text:
     "Namaste! 🙏 I'm Triva, your Travaya travel assistant.\nAsk me about any Indian destination, travel package, or trip planning advice!",
