@@ -1,0 +1,45 @@
+[
+  {
+    "timestamp": "2026-04-25T12:48:24.126390",
+    "user_input": {
+      "destinations": [
+        "Goa"
+      ],
+      "budget_inr": 20000,
+      "duration_days": 7,
+      "travel_style": [
+        "beach"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-04-25T12:49:39.270986",
+    "user_input": {
+      "destinations": [
+        "Ladakh",
+        "Andaman & Nicobar",
+        "Karnataka"
+      ],
+      "budget_inr": 30000,
+      "duration_days": 3,
+      "travel_style": [
+        "adventure",
+        "beach"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-04-25T12:51:19.689188",
+    "user_input": {
+      "destinations": [
+        "Karnataka",
+        "Ladakh"
+      ],
+      "budget_inr": 30000,
+      "duration_days": 3,
+      "travel_style": [
+        "adventure"
+      ]
+    }
+  }
+]

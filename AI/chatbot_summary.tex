@@ -1,0 +1,274 @@
+\documentclass[12pt,a4paper]{article}
+
+% ---- Packages ----
+\usepackage[margin=2.5cm, headheight=15pt]{geometry}
+\usepackage{fontenc}
+\usepackage{inputenc}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{textcomp}
+\newcommand{\rupee}{INR\,}
+\usepackage{hyperref}
+
+% ---- Colors ----
+\definecolor{travayagreen}{RGB}{26, 124, 94}
+\definecolor{codebg}{RGB}{248, 249, 250}
+\definecolor{codeframe}{RGB}{220, 220, 220}
+\definecolor{keywordcolor}{RGB}{26, 124, 94}
+\definecolor{commentcolor}{RGB}{108, 117, 125}
+\definecolor{stringcolor}{RGB}{198, 70, 0}
+
+% ---- Hyperref ----
+\hypersetup{
+    colorlinks=true,
+    linkcolor=travayagreen,
+    urlcolor=travayagreen,
+    citecolor=travayagreen
+}
+
+% ---- Code Listing Style ----
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{codebg},
+    frame=single,
+    framerule=0.8pt,
+    rulecolor=\color{codeframe},
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{keywordcolor}\bfseries,
+    commentstyle=\color{commentcolor}\itshape,
+    stringstyle=\color{stringcolor},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    xleftmargin=8pt,
+    xrightmargin=4pt,
+    aboveskip=8pt,
+    belowskip=4pt,
+    numbers=none,
+}
+\lstset{style=codestyle}
+
+% ---- Section Formatting ----
+\titleformat{\section}
+  {\large\bfseries\color{travayagreen}}
+  {\thesection.}{0.5em}{}[\titlerule]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries}
+  {\thesubsection.}{0.5em}{}
+
+% ---- Header / Footer ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{travayagreen}{\textbf{Travaya}} --- AI Chatbot Module (Triva)}
+\fancyhead[R]{\small Sarthak Vijay (22ESKCS197)}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{travayagreen}\leaders\hrule height \headrulewidth\hfill}}
+
+% ---- Custom Commands ----
+\newcommand{\file}[1]{\texttt{\textcolor{travayagreen}{#1}}}
+\newcommand{\tag}[1]{\texttt{#1}}
+
+% ============================================================
+\begin{document}
+% ============================================================
+
+% ---- Title Block ----
+\begin{center}
+  {\LARGE\bfseries\color{travayagreen} Travaya --- AI Chatbot Module (Triva)}\\[6pt]
+  {\large Module: AI \& Recommendation System}\\[4pt]
+  {\normalsize Module Owner: Sarthak Vijay (22ESKCS197) \quad|\quad Project: SKIT/CSE/2022-2026/44}
+\end{center}
+
+\vspace{6pt}
+\noindent\rule{\textwidth}{1.2pt}
+\vspace{4pt}
+
+% ============================================================
+\section{File Structure}
+% ============================================================
+
+\begin{lstlisting}
+travaya_chatbot/
+|
+|-- chatbot_api.py        <- Flask API server (run this)
+|-- intents.json          <- Model 1: General travel intents
+|-- intents1.json         <- Model 2: India destination-specific details
+|-- TrivaChatbot.jsx      <- React component for MERN frontend
+|
+|-- data.pickle           <- Auto-generated: preprocessed Model 1 data
+|-- data1.pickle          <- Auto-generated: preprocessed Model 2 data
+|-- model_weights.h5      <- Auto-generated: trained Model 1 weights
+|-- model1_weights.h5     <- Auto-generated: trained Model 2 weights
+|
+\-- README.md             <- Documentation
+\end{lstlisting}
+
+% ============================================================
+\section{How to Run}
+% ============================================================
+
+\subsection{Step 1: Install Dependencies}
+
+\begin{lstlisting}[language=bash]
+pip install flask flask-cors tensorflow nltk
+\end{lstlisting}
+
+\subsection{Step 2: Start the Flask Chatbot API}
+
+\begin{lstlisting}[language=bash]
+python chatbot_api.py
+\end{lstlisting}
+
+\subsection{Step 3: Integrate with React (MERN Frontend)}
+
+Copy \file{TrivaChatbot.jsx} into your React project's components folder, then add it anywhere in your app:
+
+\begin{lstlisting}[language=Java, caption={App.jsx --- Adding Triva to MERN frontend}]
+// In App.jsx or any layout component
+import TrivaChatbot from './components/TrivaChatbot';
+
+function App() {
+  return (
+    <div>
+      {/* Your existing MERN app */}
+      <TrivaChatbot />   {/* Add this one line */}
+    </div>
+  );
+}
+\end{lstlisting}
+
+The chatbot will appear as a floating button (bottom-right corner) on every page of your website.
+
+% ============================================================
+\section{How the Chatbot Works}
+% ============================================================
+
+\subsection{Two-Model Architecture}
+
+\textbf{Model 1 --- General Intent Classifier}
+\begin{itemize}[noitemsep]
+  \item File: \file{intents.json}
+  \item Handles: greetings, goodbyes, general package info, booking info, travel styles
+  \item Tags: \tag{greeting}, \tag{goodbye}, \tag{identity}, \tag{destinations}, \tag{budget\_travel}, \tag{adventure\_travel}, etc.
+\end{itemize}
+
+\vspace{6pt}
+\textbf{Model 2 --- Destination-Specific Responder}
+\begin{itemize}[noitemsep]
+  \item File: \file{intents1.json}
+  \item Handles: specific Indian state/destination details with full package info
+  \item Tags: \tag{Goa}, \tag{Kerala}, \tag{Rajasthan}, \tag{Kashmir}, \tag{Andaman}, \tag{Himachal}, \tag{Ladakh}, etc.
+\end{itemize}
+
+\subsection{Routing Flow}
+
+\begin{lstlisting}
+User Message
+     |
+     v
+Model 1  -->  Classifies intent (tag)
+     |
+     v
+If tag == "destinations"  -->  Model 2  -->  Returns specific package details
+Else                       -->  Model 1  -->  Returns general response
+\end{lstlisting}
+
+% ============================================================
+\section{Covered Indian Destinations}
+% ============================================================
+
+\begin{longtable}{>{\bfseries}p{4.2cm} p{3.5cm} p{1.8cm} p{4cm}}
+\toprule
+\textbf{Destination} & \textbf{Package Cost} & \textbf{Duration} & \textbf{Type} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Destination} & \textbf{Package Cost} & \textbf{Duration} & \textbf{Type} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Goa & \rupee12,000 -- \rupee18,000 & 5D/4N & Beach, Water Sports \\
+Andaman \& Nicobar & \rupee28,000 -- \rupee45,000 & 7D/6N & Beach, Scuba Diving \\
+Kerala & \rupee20,000 -- \rupee32,000 & 7D/6N & Backwaters, Nature \\
+Rajasthan & \rupee20,000 -- \rupee38,000 & 10D/9N & Heritage, Culture \\
+Kashmir & \rupee25,000 -- \rupee40,000 & 6D/5N & Nature, Adventure \\
+Himachal Pradesh & \rupee22,000 -- \rupee35,000 & 8D/7N & Adventure, Trekking \\
+Ladakh & \rupee25,000 -- \rupee42,000 & 7D/6N & Adventure, Biking \\
+Darjeeling \& Sikkim & \rupee18,000 -- \rupee28,000 & 7D/6N & Nature, Culture \\
+Varanasi \& Agra & \rupee12,000 -- \rupee20,000 & 5D/4N & Spiritual, Heritage \\
+Northeast (Meghalaya/Assam) & \rupee22,000 -- \rupee36,000 & 8D/7N & Nature, Wildlife \\
+Karnataka & \rupee14,000 -- \rupee24,000 & 6D/5N & Heritage, Nature \\
+Tamil Nadu & \rupee15,000 -- \rupee26,000 & 7D/6N & Culture, Spiritual \\
+Maharashtra & \rupee14,000 -- \rupee22,000 & 6D/5N & Heritage, City \\
+Gujarat & \rupee16,000 -- \rupee28,000 & 7D/6N & Wildlife, Heritage \\
+Lakshadweep & \rupee30,000 -- \rupee55,000 & 5D/4N & Luxury, Beach \\
+Odisha & \rupee11,000 -- \rupee18,000 & 5D/4N & Spiritual, Beach \\
+\end{longtable}
+
+% ============================================================
+\section{API Reference}
+% ============================================================
+
+\subsection{POST /api/chat}
+
+\begin{lstlisting}[caption={Request and Response --- /api/chat}]
+// Request Body
+{ "message": "Tell me about Kerala" }
+
+// Response
+{
+  "status":     "success",
+  "response":   "Kerala - God's Own Country\n- Duration: 7 Days...",
+  "tag":        "destinations",
+  "confidence": 0.94
+}
+\end{lstlisting}
+
+\subsection{GET /api/health}
+
+Returns server status and a list of all supported destinations.
+
+\subsection{GET /api/destinations}
+
+Returns all destination tags currently supported by the chatbot.
+
+% ============================================================
+\section{Technology Stack}
+% ============================================================
+
+\begin{center}
+\begin{tabular}{>{\bfseries}p{4.5cm} p{8cm}}
+\toprule
+\textbf{Component} & \textbf{Technology} \\
+\midrule
+NLP Engine        & TensorFlow 2.x + Keras \\
+Text Processing   & NLTK + Lancaster Stemmer \\
+API Server        & Flask + Flask-CORS \\
+Frontend Component & React.js (JSX) \\
+Data Format       & JSON (intents) + Pickle (preprocessed) \\
+Algorithm         & Bag-of-Words + Dense Neural Network \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{12pt}
+\noindent\rule{\textwidth}{0.5pt}
+\vspace{4pt}
+
+\begin{center}
+\small\textit{Module: AI \& Recommendation System \quad|\quad Travaya --- SKIT/CSE/2022-2026/44}
+\end{center}
+
+\end{document}

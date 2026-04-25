@@ -93,9 +93,9 @@ const DestinationCard = ({
     }, [image, name]);
 
     return (
-        <div className={`group bg-card rounded-2xl md:rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>
+        <div className={`group bg-card rounded-2xl md:rounded-[2.5rem] border border-border-custom hover:shadow-2xl hover:shadow-primary/10 transition-all duration-400 transform ${isList ? 'flex-row md:flex-row' : 'flex-col sm:hover:-translate-y-3'} flex h-full will-change-[transform,opacity]`}>
             {/* Image Container */}
-            <div className={`relative overflow-hidden ${isList ? 'w-full md:w-[400px] shrink-0 h-48 md:h-auto rounded-t-2xl md:rounded-l-[2.5rem] md:rounded-tr-none' : 'h-52 md:h-72 rounded-t-2xl md:rounded-t-[2.5rem]'} will-change-contents`}>
+            <div className={`relative overflow-hidden ${isList ? 'w-full md:w-[400px] shrink-0 h-44 md:h-auto rounded-t-2xl md:rounded-l-[2.5rem] md:rounded-tr-none' : 'h-32 sm:h-52 md:h-72 rounded-t-2xl md:rounded-t-[2.5rem]'} will-change-contents`}>
                 <Image 
                     src={normalizedImage} 
                     alt={name}
@@ -167,7 +167,7 @@ const DestinationCard = ({
 
                 <div className={`flex items-center flex-wrap gap-2 md:gap-4 mt-4 md:mt-8 pt-4 md:pt-6 border-t border-border-custom ${isList ? 'justify-between' : 'justify-between'}`}>
                     <div className="space-y-0.5">
-                        <p className="text-[9px] md:text-[10px] font-black text-gray-500 uppercase tracking-widest">Base Fee</p>
+                        <p className="hidden md:block text-[9px] md:text-[10px] font-black text-gray-500 uppercase tracking-widest">Base Fee</p>
                         <div className="flex items-baseline gap-1">
                             <span className="text-lg md:text-2xl font-black italic tracking-tighter">{formatPrice(price)}</span>
                             <span className="text-[8px] font-bold text-gray-400 uppercase tracking-widest">/ pp</span>

@@ -1,0 +1,60 @@
+[
+  {
+    "timestamp": "2026-04-25T12:48:24.128391",
+    "user_input": {
+      "destinations": [
+        "Goa"
+      ],
+      "budget_inr": 20000,
+      "duration_days": 7,
+      "travel_style": [
+        "beach"
+      ]
+    },
+    "recommended_packages": [
+      "Goa Beach Escape",
+      "Odisha Spiritual & Beach Tour",
+      "Andaman Island Paradise"
+    ]
+  },
+  {
+    "timestamp": "2026-04-25T12:49:39.273141",
+    "user_input": {
+      "destinations": [
+        "Ladakh",
+        "Andaman & Nicobar",
+        "Karnataka"
+      ],
+      "budget_inr": 30000,
+      "duration_days": 3,
+      "travel_style": [
+        "adventure",
+        "beach"
+      ]
+    },
+    "recommended_packages": [
+      "Andaman Island Paradise",
+      "Goa Beach Escape",
+      "Leh-Ladakh High Altitude Adventure"
+    ]
+  },
+  {
+    "timestamp": "2026-04-25T12:51:19.695451",
+    "user_input": {
+      "destinations": [
+        "Karnataka",
+        "Ladakh"
+      ],
+      "budget_inr": 30000,
+      "duration_days": 3,
+      "travel_style": [
+        "adventure"
+      ]
+    },
+    "recommended_packages": [
+      "Leh-Ladakh High Altitude Adventure",
+      "Goa Beach Escape",
+      "Manali-Spiti Adventure"
+    ]
+  }
+]

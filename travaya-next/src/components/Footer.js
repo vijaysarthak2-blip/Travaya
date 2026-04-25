@@ -4,19 +4,19 @@ import { MessageCircle, Send, Camera, Mail, MapPin, Phone } from 'lucide-react';
 
 const Footer = () => {
     return (
-        <footer className="bg-[#1a1a1a] text-white pt-16 pb-8 border-t border-white/5">
-            <div className="max-w-7xl mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <footer className="bg-[#1a1a1a] text-white pt-10 sm:pt-16 pb-8 border-t border-white/5">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-10 sm:mb-16">
                     {/* Brand Section */}
-                    <div className="space-y-6">
-                        <Link href="/" className="text-3xl font-bold text-primary tracking-tighter">
+                    <div className="space-y-4 sm:space-y-6 col-span-2 sm:col-span-1">
+                        <Link href="/" className="text-2xl sm:text-3xl font-bold text-primary tracking-tighter">
                             Travaya
                         </Link>
-                        <p className="text-gray-400 leading-relaxed max-w-sm">
+                        <p className="text-gray-400 leading-relaxed max-w-sm text-sm">
                             Discover amazing travel destinations across the globe.
-                            Your journey begins with us, exploring the unseen beauty of nature.
+                            Your journey begins with us.
                         </p>
-                        <div className="flex gap-4">
+                        <div className="flex gap-3">
                             {[
                                 { Icon: MessageCircle, href: "#", delay: "0s" },
                                 { Icon: Send, href: "#", delay: "0.2s" },
@@ -26,9 +26,9 @@ const Footer = () => {
                                     key={index}
                                     href={href}
                                     style={{ animationDelay: delay }}
-                                    className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-black transition-all transform hover:-translate-y-1 animate-footer-float"
+                                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary hover:text-black transition-all transform hover:-translate-y-1 animate-footer-float"
                                 >
-                                    <Icon size={20} />
+                                    <Icon size={16} />
                                 </a>
                             ))}
                         </div>
@@ -36,17 +36,17 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-xl font-bold mb-6 text-primary">Quick Links</h3>
-                        <ul className="space-y-4">
-                            <li><Link href="/" className="text-gray-400 hover:text-primary transition-colors">Home</Link></li>
-                            <li><Link href="/packages" className="text-gray-400 hover:text-primary transition-colors">Tours</Link></li>
-                            <li><Link href="/destinations" className="text-gray-400 hover:text-primary transition-colors">Destinations</Link></li>
-                            <li><Link href="/contact" className="text-gray-400 hover:text-primary transition-colors">Contact us</Link></li>
+                        <h3 className="text-base sm:text-xl font-bold mb-3 sm:mb-6 text-primary">Quick Links</h3>
+                        <ul className="space-y-2 sm:space-y-4">
+                            <li><Link href="/" className="text-gray-400 hover:text-primary transition-colors text-sm">Home</Link></li>
+                            <li><Link href="/packages" className="text-gray-400 hover:text-primary transition-colors text-sm">Tours</Link></li>
+                            <li><Link href="/destinations" className="text-gray-400 hover:text-primary transition-colors text-sm">Destinations</Link></li>
+                            <li><Link href="/contact" className="text-gray-400 hover:text-primary transition-colors text-sm">Contact us</Link></li>
                         </ul>
                     </div>
 
-                    {/* Support */}
-                    <div>
+                    {/* Support - hidden on mobile */}
+                    <div className="hidden sm:block">
                         <h3 className="text-xl font-bold mb-6 text-primary">Support</h3>
                         <ul className="space-y-4">
                             <li><Link href="/faq" className="text-gray-400 hover:text-primary transition-colors">FAQs</Link></li>
@@ -56,8 +56,8 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Contact Info */}
-                    <div>
+                    {/* Contact Info - hidden on mobile */}
+                    <div className="hidden sm:block">
                         <h3 className="text-xl font-bold mb-6 text-primary">Reach Us</h3>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
@@ -78,7 +78,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
                     <p>© 2026 Travaya. All rights reserved.</p>
                     <p>Designed with ❤️ for Travelers</p>
                 </div>

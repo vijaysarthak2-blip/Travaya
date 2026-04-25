@@ -73,7 +73,7 @@ export default function Contact() {
         <div className="flex flex-col min-h-screen bg-background">
             
             {/* Cinematic Adventure Hero */}
-            <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+            <section className="relative h-[30vh] sm:h-[50vh] flex items-center justify-center overflow-hidden">
                 <div className="absolute inset-0 z-0 scale-110 animate-[zoom_20s_ease-in-out_infinite]">
                     <Image 
                         src="/contact-hero.png" 
@@ -85,47 +85,49 @@ export default function Contact() {
                     <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-background" />
                 </div>
 
-                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center space-y-6 pb-16">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-black uppercase tracking-[0.2em] backdrop-blur-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
-                        <MessageSquare size={14} />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center space-y-3 sm:space-y-6 pb-8 sm:pb-16">
+                    <div className="hidden sm:inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/20 border border-primary/30 text-primary text-xs font-black uppercase tracking-[0.2em] backdrop-blur-md mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+                        <MessageSquare size={12} />
                         <span>Get in Touch</span>
                     </div>
-                    <h1 className="text-3xl md:text-5xl lg:text-8xl font-black text-white tracking-tighter leading-none animate-in fade-in slide-in-from-bottom-8 duration-1000">
+                    <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-8xl font-black text-white tracking-tighter leading-none animate-in fade-in slide-in-from-bottom-8 duration-1000">
                         Let's Plan Your <span className="text-primary italic font-medium">Next Story</span>
                     </h1>
-                    <p className="text-gray-300 max-w-xl mx-auto text-lg md:text-xl font-medium leading-relaxed opacity-90 animate-in fade-in slide-in-from-bottom-12 duration-1200">
+                    <p className="hidden sm:block text-gray-300 max-w-xl mx-auto text-lg md:text-xl font-medium leading-relaxed opacity-90 animate-in fade-in slide-in-from-bottom-12 duration-1200">
                         Our world-class travel designers are ready to craft your perfect journey.
                     </p>
                 </div>
             </section>
 
             {/* Info Section - Floating Cards */}
-            <section className="relative z-20 -mt-20 px-6 max-w-7xl mx-auto w-full">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <section className="relative z-20 -mt-10 sm:-mt-20 px-3 sm:px-6 max-w-7xl mx-auto w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8">
                     {contactInfo.map((info, i) => (
                         <div
                             key={i}
                             style={{ animationDelay: `${0.2 * i}s` }}
-                            className={`animate-in fade-in slide-in-from-bottom-10 duration-1000 bg-card/80 backdrop-blur-2xl border border-border-custom p-6 md:p-10 rounded-2xl md:rounded-[3rem] shadow-2xl transition-all group hover:-translate-y-2 ${info.border}`}
+                            className={`animate-in fade-in slide-in-from-bottom-10 duration-1000 bg-card/80 backdrop-blur-2xl border border-border-custom p-3 sm:p-6 md:p-10 rounded-2xl md:rounded-[3rem] shadow-2xl transition-all group hover:-translate-y-2 ${info.border} flex sm:flex-col items-center sm:items-start gap-3 sm:gap-0`}
                         >
-                            <div className={`w-16 h-16 ${info.bg} ${info.color} rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
-                                <info.icon size={32} />
+                            <div className={`w-10 h-10 sm:w-16 sm:h-16 ${info.bg} ${info.color} rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 sm:mb-6 group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                                <info.icon size={20} />
                             </div>
-                            <h3 className="text-2xl font-black tracking-tight mb-2 uppercase">{info.title}</h3>
-                            <p className="font-black text-lg mb-2 text-foreground group-hover:text-primary transition-colors">{info.detail}</p>
-                            <p className="text-gray-500 text-sm font-bold uppercase tracking-widest">{info.description}</p>
+                            <div>
+                                <h3 className="text-base sm:text-2xl font-black tracking-tight mb-0.5 sm:mb-2 uppercase">{info.title}</h3>
+                                <p className="font-black text-sm sm:text-lg mb-0.5 sm:mb-2 text-foreground group-hover:text-primary transition-colors">{info.detail}</p>
+                                <p className="text-gray-500 text-xs font-bold uppercase tracking-widest hidden sm:block">{info.description}</p>
+                            </div>
                         </div>
                     ))}
                 </div>
             </section>
 
             {/* Core Interaction Section */}
-            <section className="py-32 px-6 max-w-7xl mx-auto w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+            <section className="py-8 sm:py-16 lg:py-32 px-3 sm:px-6 max-w-7xl mx-auto w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-24 items-start">
 
                     {/* Premium Contact Form */}
                     <div className="animate-in fade-in slide-in-from-left-10 duration-1000">
-                        <div className="bg-card border border-border-custom rounded-[2.5rem] md:rounded-[4rem] p-6 md:p-16 shadow-2xl relative overflow-hidden group">
+                        <div className="bg-card border border-border-custom rounded-[2rem] md:rounded-[4rem] p-5 sm:p-8 md:p-16 shadow-2xl relative overflow-hidden group">
                             {/* Success Overlay */}
                             {isSuccess && (
                                 <div className="absolute inset-0 z-20 bg-background/95 backdrop-blur-xl flex flex-col items-center justify-center p-12 text-center animate-in fade-in zoom-in duration-500">
@@ -148,18 +150,18 @@ export default function Contact() {
                                 </div>
                             )}
 
-                            <div className="space-y-12">
-                                <div className="space-y-4">
+                            <div className="space-y-6 sm:space-y-12">
+                                <div className="space-y-2 sm:space-y-4">
                                     <div className="inline-flex items-center gap-2 text-primary font-black text-xs uppercase tracking-[0.3em]">
-                                         <Sparkles size={16} />
+                                         <Sparkles size={14} />
                                          <span>Inquiry Form</span>
                                     </div>
-                                    <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight">Send <span className="text-primary italic">Adventure</span> Inquiry</h2>
-                                    <p className="text-gray-500 font-medium text-lg">Complete the details below to receive a custom travel quote.</p>
+                                    <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-tight">Send <span className="text-primary italic">Adventure</span> Inquiry</h2>
+                                    <p className="text-gray-500 font-medium text-sm sm:text-lg">Complete the details below to receive a custom travel quote.</p>
                                 </div>
 
-                                <form onSubmit={handleSubmit} className="space-y-8">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-8">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-gray-500 uppercase tracking-[0.2em] ml-2">Your Name</label>
                                             <div className="relative group">
@@ -239,8 +241,8 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    {/* Content Section / Decorative */}
-                    <div className="pt-12 space-y-16 animate-in fade-in slide-in-from-right-10 duration-1200">
+                    {/* Content Section / Decorative - Hidden on mobile */}
+                    <div className="hidden lg:block pt-12 space-y-16 animate-in fade-in slide-in-from-right-10 duration-1200">
                         <div className="space-y-8">
                             <h2 className="text-3xl md:text-5xl font-black tracking-tighter italic">Why Choose <span className="text-primary underline decoration-primary/30 underline-offset-8">Travaya?</span></h2>
                             <p className="text-gray-500 text-xl font-medium leading-relaxed max-w-lg">

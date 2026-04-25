@@ -1,0 +1,180 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "Hello", "How are you", "Is anyone there?", "Good day", "Whats up", "Hey", "Namaste"],
+      "responses": [
+        "Namaste! Welcome to Travaya. How can I help you plan your India trip?",
+        "Hello! I'm Triva, your Travaya travel assistant. Where in India would you like to explore?",
+        "Hi there! Ready to discover the best of India? How can I assist you?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "goodbye", "see you later", "cya", "thanks", "thank you", "have a good day", "I am leaving"],
+      "responses": [
+        "Safe travels! Come back whenever you need help planning your India trip.",
+        "Goodbye! Hope to help you plan an amazing Indian adventure soon!",
+        "You're welcome! Have a wonderful journey across India!"
+      ]
+    },
+    {
+      "tag": "identity",
+      "patterns": ["who are you", "what is your name", "what should I call you", "whats your name", "your features", "what do you do", "how old are you"],
+      "responses": [
+        "I'm Triva, the AI travel assistant for Travaya! I help you explore destinations, find packages, and plan trips across India.",
+        "You can call me Triva! I'm here to help you discover the best travel destinations and packages across India."
+      ]
+    },
+    {
+      "tag": "packages_info",
+      "patterns": ["what packages do you have", "show me packages", "what do you sell", "what kind of trips do you offer", "what tours are available"],
+      "responses": [
+        "We offer amazing travel packages across India! From the beaches of Goa to the mountains of Himachal Pradesh, we cover it all. Ask me about any specific state or destination!",
+        "Travaya offers curated travel packages across all Indian states. Try asking about Rajasthan, Kerala, Goa, Himachal Pradesh, and many more!"
+      ]
+    },
+    {
+      "tag": "booking_info",
+      "patterns": ["how to book", "how do I book a trip", "how to reserve", "how to buy a package", "book online", "booking process"],
+      "responses": [
+        "To book a trip, simply browse our packages on the Travaya website, select your preferred destination and dates, and complete the secure payment process. It's that simple!",
+        "You can book any package directly through our website. Go to 'Tours', select your destination, choose your travel dates, and proceed to payment!"
+      ]
+    },
+    {
+      "tag": "offline_booking",
+      "patterns": ["offline booking", "book in person", "visit office", "talk to agent", "where is your office"],
+      "responses": [
+        "Currently Travaya operates as an online platform available 24/7. You can reach our support team through the Contact Us page for personalized assistance.",
+        "We operate online, but our support team is always available to help! Visit the Contact Us page on our website."
+      ]
+    },
+    {
+      "tag": "hours",
+      "patterns": ["when are you open", "working hours", "hours of operation", "support hours"],
+      "responses": [
+        "Travaya's website is available 24/7 for browsing and booking! Our customer support team is available Monday-Saturday, 9am-6pm IST."
+      ]
+    },
+    {
+      "tag": "destinations",
+      "patterns": [
+        "show me destinations", "what destinations do you have", "which states do you cover",
+        "tell me about Indian destinations", "popular destinations in India",
+        "best places to visit in India", "where can I travel in India",
+        "Rajasthan", "Kerala", "Goa", "Himachal Pradesh", "Uttarakhand",
+        "Andaman", "Kashmir", "Ladakh", "Tamil Nadu", "Karnataka",
+        "Maharashtra", "Gujarat", "Odisha", "West Bengal", "Sikkim",
+        "Meghalaya", "Assam", "Arunachal Pradesh", "Daman", "Lakshadweep",
+        "show me some", "which destination is the best", "recommend a destination",
+        "what are the prices", "cost", "your recommendations"
+      ],
+      "responses": [""],
+      "context_set": "specific_details"
+    },
+    {
+      "tag": "budget_travel",
+      "patterns": ["budget travel", "cheap trips", "affordable packages", "low cost travel", "travel on budget", "cheap destinations in India"],
+      "responses": [
+        "Great news! India has amazing budget-friendly destinations. Rajasthan heritage tours, Coorg in Karnataka, Hampi, and the Northeast states offer incredible experiences at low costs. Would you like details on any of these?",
+        "For budget travel in India, consider Rishikesh, Hampi, Varanasi, or Spiti Valley. These offer great experiences without heavy spending! Ask me about any specific destination."
+      ]
+    },
+    {
+      "tag": "luxury_travel",
+      "patterns": ["luxury travel", "premium packages", "luxury destinations", "five star", "high end travel", "best luxury trips in India"],
+      "responses": [
+        "For luxury travel in India, consider the Palace Hotels of Rajasthan, luxury houseboats in Kerala, or the exclusive resorts of Andaman & Nicobar. Travaya offers premium curated packages for these destinations!",
+        "India's top luxury destinations include Udaipur (the City of Lakes), the Maldives-like beauty of Lakshadweep, and the scenic luxury resorts of Coorg. Ask me for more details!"
+      ]
+    },
+    {
+      "tag": "adventure_travel",
+      "patterns": ["adventure trips", "trekking", "adventure destinations", "hiking", "camping", "river rafting", "adventure in India"],
+      "responses": [
+        "India is an adventurer's paradise! Top picks include: Trekking in Himachal Pradesh & Uttarakhand, River Rafting in Rishikesh, Scuba Diving in Andaman, Skiing in Gulmarg (Kashmir), and Wildlife Safari in Corbett National Park!",
+        "For adventure travel, check out Spiti Valley, Leh-Ladakh, Valley of Flowers (Uttarakhand), or the Northeast. Want details on any of these destinations?"
+      ]
+    },
+    {
+      "tag": "family_travel",
+      "patterns": ["family trip", "family vacation", "travel with kids", "family friendly destinations", "family packages"],
+      "responses": [
+        "Great family destinations in India include Goa (beaches + water parks), Manali (snow + nature), Ooty & Kodaikanal (hill stations), and Jaipur (forts + culture). Our packages include family-friendly accommodations and activities!",
+        "India has wonderful family-friendly destinations! Consider Kerala backwaters, Goa beaches, Rajasthan forts, or the scenic Darjeeling hills. All great for families with kids!"
+      ]
+    },
+    {
+      "tag": "beach_travel",
+      "patterns": ["beach vacation", "beach destinations", "sea", "coastal travel", "beaches in India", "best beaches"],
+      "responses": [
+        "India's best beaches include Goa (most popular), Andaman & Nicobar (crystal clear waters), Lakshadweep (pristine lagoons), Kerala (Kovalam, Varkala), and Odisha (Puri). Ask me about any specific beach destination!",
+        "For beach lovers, top picks are Goa, Andaman Islands, Lakshadweep, and the Konkan coast of Maharashtra. Travaya has great packages for all these!"
+      ]
+    },
+    {
+      "tag": "hill_station",
+      "patterns": ["hill station", "mountains", "cold places", "cool destinations", "hill stations in India", "best hill stations"],
+      "responses": [
+        "India's top hill stations include Shimla & Manali (Himachal), Mussoorie & Nainital (Uttarakhand), Darjeeling & Gangtok (Northeast), Ooty & Kodaikanal (Tamil Nadu), and Munnar (Kerala). Would you like details on any?",
+        "Popular hill stations in India: Shimla, Manali, Darjeeling, Ooty, Munnar, Coorg, and Shillong. Each has its own unique charm! Ask me about any specific one."
+      ]
+    },
+    {
+      "tag": "cultural_travel",
+      "patterns": ["cultural trip", "heritage sites", "history tour", "cultural destinations", "temples", "forts", "historical places in India"],
+      "responses": [
+        "India is rich in cultural heritage! Top cultural destinations: Rajasthan (forts & palaces), Varanasi (ancient ghats), Hampi (UNESCO ruins), Khajuraho (temples), Mahabalipuram, and Ajanta-Ellora caves.",
+        "For cultural tourism, Rajasthan is a must-visit! Also consider Varanasi, Agra (Taj Mahal), Hampi, Puri, and Madurai. We have excellent heritage tour packages for these destinations."
+      ]
+    },
+    {
+      "tag": "northeast_india",
+      "patterns": ["northeast India", "seven sisters", "Meghalaya", "Assam", "Arunachal", "Sikkim", "Manipur", "Nagaland", "Mizoram", "Tripura"],
+      "responses": [
+        "Northeast India is a hidden gem! Meghalaya has living root bridges & waterfalls, Assam has Kaziranga National Park & tea gardens, Sikkim has stunning Himalayan views, and Arunachal Pradesh has pristine tribal culture. Ask for specific state packages!",
+        "The Northeast is one of India's most beautiful regions! Top states to visit: Meghalaya, Sikkim, Assam, and Arunachal Pradesh. We have special packages for this region!"
+      ]
+    },
+    {
+      "tag": "top_package",
+      "patterns": ["most popular package", "best package", "top destination", "most visited", "highest rated", "most booked"],
+      "responses": [
+        "Our most popular packages right now are: 1) Kerala Backwaters & Beaches, 2) Rajasthan Royal Heritage Tour, 3) Manali-Spiti Adventure, and 4) Andaman Island Escape! Ask me about any of these.",
+        "Top booked packages on Travaya: Goa Beach Getaway, Kashmir Paradise, Kerala God's Own Country, and Rajasthan Forts & Palaces. Which interests you?"
+      ]
+    },
+    {
+      "tag": "weather_info",
+      "patterns": ["best time to visit", "when to travel", "weather in India", "which season to visit", "monsoon travel", "winter travel India"],
+      "responses": [
+        "Best time varies by region! October-March is ideal for most of India. Summer (Apr-Jun) is best for Himachal & Ladakh. Monsoon (Jul-Sep) is beautiful in Kerala & Northeast. Ask me about specific destination weather!",
+        "India travel tips: Visit Rajasthan in winter (Oct-Feb), Hill stations in summer (Apr-Jun), Kerala during or after monsoon for lush greenery, and Andaman anytime except monsoon!"
+      ]
+    },
+    {
+      "tag": "recommender",
+      "patterns": ["suggest me a trip", "recommend me", "which trip should I take", "help me choose", "I don't know where to go", "suggest destination"],
+      "responses": [
+        "I'd love to help you find the perfect trip! Please use the AI Recommendation feature on our website — it will suggest the best package based on your budget, travel style, and preferred duration. It's personalized just for you!"
+      ]
+    },
+    {
+      "tag": "feedback",
+      "patterns": ["not helpful", "bad response", "wrong answer", "your responses are not helpful", "I didn't get help", "information is incorrect", "not up to date"],
+      "responses": [
+        "I'm sorry I couldn't help better! I'm still learning. Please reach out to our support team via the Contact Us page for more detailed assistance.",
+        "Apologies for the inconvenience! Your feedback helps me improve. Please contact our human support team for further help."
+      ]
+    },
+    {
+      "tag": "context_less",
+      "patterns": ["explain further", "what do you mean", "more details", "clarify", "can you explain", "ok", "I see", "what next"],
+      "responses": [
+        "Could you be more specific? Try asking about a particular Indian state, destination, package type, or travel style. I'm here to help!",
+        "I need a bit more context! Ask me about any Indian state, travel style (adventure/beach/cultural), or package pricing and I'll do my best to help."
+      ]
+    }
+  ]
+}

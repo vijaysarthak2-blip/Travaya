@@ -73,13 +73,22 @@ html, body {
 @media (max-width: 640px) {
   h1, h2, h3 { word-break: break-word; }
   /* Cap huge text classes on mobile */
-  .text-6xl { font-size: 2.25rem !important; }
-  .text-7xl { font-size: 2.5rem !important; }
-  .text-8xl { font-size: 2.75rem !important; }
+  .text-5xl { font-size: 1.9rem !important; }
+  .text-6xl { font-size: 2.1rem !important; }
+  .text-7xl { font-size: 2.3rem !important; }
+  .text-8xl { font-size: 2.5rem !important; }
   /* Prevent flex children from overflowing */
   .flex { min-width: 0; }
   /* Reduce section padding */
-  section, .section { padding-left: 1rem; padding-right: 1rem; }
+  section, .section { padding-left: 0.75rem; padding-right: 0.75rem; }
+  /* Tighten vertical rhythm */
+  .space-y-16 > * + * { margin-top: 2rem; }
+  .space-y-12 > * + * { margin-top: 1.5rem; }
+  .py-32 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+  .pt-16 { padding-top: 2rem !important; }
+  .pb-20 { padding-bottom: 2rem !important; }
+  .mb-16 { margin-bottom: 2rem !important; }
+  .mb-12 { margin-bottom: 1.25rem !important; }
 }
 
 /* Portal dropdown gets a thin styled scrollbar */

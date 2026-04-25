@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
     Menu, X, Home, Map, Umbrella, Phone,
-    Moon, Sun, User as UserIcon, LogOut, Settings, LayoutDashboard
+    Moon, Sun, User as UserIcon, LogOut, Settings, LayoutDashboard, Sparkles
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import { useCurrency, CURRENCIES } from "../context/CurrencyContext";
@@ -44,6 +44,7 @@ const Navbar = () => {
     const navLinks = [
         { name: "Home", href: "/", icon: Home },
         { name: "Tours", href: "/packages", icon: Umbrella },
+        { name: "AI Recommender", href: "/recommender", icon: Sparkles },
         { name: "Contact", href: "/contact", icon: Phone },
     ];
 
@@ -191,12 +192,12 @@ const Navbar = () => {
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsMenuOpen(false)}
-                                className={`flex items-center gap-4 px-4 py-4 rounded-2xl text-base font-semibold transition-all ${active
+                                className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold transition-all ${active
                                     ? "bg-primary text-black"
                                     : "text-foreground/80 hover:bg-primary/10 hover:text-primary"
                                     }`}
                             >
-                                <Icon size={22} />
+                                <Icon size={18} />
                                 <span>{link.name}</span>
                             </Link>
                         );
@@ -211,18 +212,18 @@ const Navbar = () => {
                                 <Link
                                     href="/admin"
                                     onClick={() => setIsMenuOpen(false)}
-                                    className="flex items-center gap-4 px-4 py-4 rounded-2xl text-base font-semibold text-primary hover:bg-primary/10 transition-all"
+                                    className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-primary hover:bg-primary/10 transition-all"
                                 >
-                                    <LayoutDashboard size={22} />
+                                    <LayoutDashboard size={18} />
                                     <span>Admin Panel</span>
                                 </Link>
                             )}
                             <Link
                                 href="/profile"
                                 onClick={() => setIsMenuOpen(false)}
-                                className="flex items-center gap-4 px-4 py-4 rounded-2xl text-base font-semibold text-foreground/80 hover:bg-primary/10 hover:text-primary transition-all"
+                                className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-foreground/80 hover:bg-primary/10 hover:text-primary transition-all"
                             >
-                                <Settings size={22} />
+                                <Settings size={18} />
                                 <span>My Account</span>
                             </Link>
                         </>
@@ -230,16 +231,16 @@ const Navbar = () => {
                         <Link
                             href="/login"
                             onClick={() => setIsMenuOpen(false)}
-                            className="flex items-center gap-4 px-4 py-4 rounded-2xl text-base font-semibold text-primary hover:bg-primary/10 transition-all"
+                            className="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-semibold text-primary hover:bg-primary/10 transition-all"
                         >
-                            <UserIcon size={22} />
+                            <UserIcon size={18} />
                             <span>Login / Register</span>
                         </Link>
                     )}
                 </div>
 
                 {/* Drawer Footer */}
-                <div className="px-6 py-5 border-t border-border-custom flex items-center justify-between bg-background/50">
+                <div className="px-4 py-3 border-t border-border-custom flex items-center justify-between bg-background/50">
                     <div className="flex flex-col">
                         {user ? (
                             <>
@@ -253,16 +254,16 @@ const Navbar = () => {
                     <div className="flex items-center gap-3">
                         <button
                             onClick={toggleTheme}
-                            className="p-2.5 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
+                            className="p-2 rounded-xl bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
                         >
-                            {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+                            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
                         {user && (
                             <button
                                 onClick={() => { setIsMenuOpen(false); logout(); }}
-                                className="p-2.5 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+                                className="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
                             >
-                                <LogOut size={20} />
+                                <LogOut size={18} />
                             </button>
                         )}
                     </div>
