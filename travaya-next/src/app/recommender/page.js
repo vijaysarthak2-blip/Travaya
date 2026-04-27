@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import "./recommender.css";
+import { AI_API_BASE } from "@/config";
 
 export default function RecommenderPage() {
   const [budget, setBudget] = useState("");
@@ -77,7 +78,7 @@ export default function RecommenderPage() {
     };
 
     try {
-      const apiBase = process.env.NEXT_PUBLIC_AI_API_BASE || 'http://localhost:5001';
+      const apiBase = AI_API_BASE;
       console.log(`Calling AI API at: ${apiBase}`);
 
       const res = await fetch(`${apiBase}/api/recommend`, {
@@ -104,7 +105,7 @@ export default function RecommenderPage() {
       }
     } catch (e) {
       console.error('Fetch error:', e);
-      const apiBase = process.env.NEXT_PUBLIC_AI_API_BASE || 'http://localhost:5001';
+      const apiBase = AI_API_BASE;
       setError(`Connection Error: ${e.message}. (Target: ${apiBase}). Please verify the AI service is running and CORS is allowed.`);
     } finally {
       setLoading(false);

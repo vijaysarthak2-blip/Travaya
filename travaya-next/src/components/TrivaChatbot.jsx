@@ -5,8 +5,9 @@
 // Needs : Python chatbot_api.py running on port 5001
 
 import { useState, useRef, useEffect } from "react";
+import { AI_API_BASE } from "@/config";
 
-const API   = "http://127.0.0.1:5001/api";
+const API   = `${AI_API_BASE}/api`;
 const WELCOME = {
   id: 0, role: "bot", text:
     "Namaste! 🙏 I'm Triva, your Travaya travel assistant.\nAsk me about any Indian destination, travel package, or trip planning advice!",
