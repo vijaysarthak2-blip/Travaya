@@ -104,7 +104,8 @@ export default function RecommenderPage() {
       }
     } catch (e) {
       console.error('Fetch error:', e);
-      setError(`Connection Error: ${e.message}. Please verify the AI service is running and CORS is allowed.`);
+      const apiBase = process.env.NEXT_PUBLIC_AI_API_BASE || 'http://localhost:5001';
+      setError(`Connection Error: ${e.message}. (Target: ${apiBase}). Please verify the AI service is running and CORS is allowed.`);
     } finally {
       setLoading(false);
     }

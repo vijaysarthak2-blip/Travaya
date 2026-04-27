@@ -7,6 +7,11 @@ Consolidated for deployment on Render.
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Import Chatbot Logic
 from chatbot_api import (
@@ -32,19 +37,23 @@ app = Flask(__name__)
 
 # Configure CORS
 CORS_ORIGIN = os.environ.get("CORS_ORIGIN", "*")
-# If it's a comma-separated list, split it
-origins = [o.strip() for o in CORS_ORIGIN.split(",")] if "," in CORS_ORIGIN else CORS_ORIGIN
+# Sanitize: split by comma, strip whitespace, and remove trailing slashes
+if CORS_ORIGIN == "*":
+    origins = "*"
+else:
+    origins = [o.strip().rstrip("/") for o in CORS_ORIGIN.split(",")]
 
+print(f"🌍 CORS Configured for origins: {origins}")
 CORS(app, resources={r"/api/*": {"origins": origins}}, supports_credentials=True)
 
 @app.before_request
 def log_request_info():
-    app.logger.debug('Headers: %s', request.headers)
-    app.logger.debug('Body: %s', request.get_data())
     # Log origin to help debug CORS
     origin = request.headers.get('Origin')
     if origin:
-        app.logger.info(f"Request from origin: {origin}")
+        app.logger.info(f"🚀 Request from origin: {origin}")
+    else:
+        app.logger.info(f"ℹ️ Request with no Origin header (likely direct or server-side)")
 
 # ── Health & Root ──────────────────────────────────────────
 @app.route("/")
