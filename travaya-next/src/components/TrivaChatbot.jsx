@@ -66,10 +66,11 @@ export default function TrivaChatbot() {
       };
       setMsgs(prev => [...prev, botMsg]);
 
-    } catch {
+    } catch (e) {
+      console.error('Chatbot fetch error:', e);
       setMsgs(prev => [...prev, {
         id: Date.now()+1, role:"bot", time:now(),
-        text: "⚠️ Could not connect. Make sure the Python API is running on port 5001.",
+        text: `⚠️ Connection Error: ${e.message}. (Target: ${API}/chat). Please verify the AI service is running and CORS is allowed.`,
         showFeedback: false, feedback: null
       }]);
     } finally {
