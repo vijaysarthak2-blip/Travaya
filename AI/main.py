@@ -42,6 +42,9 @@ if CORS_ORIGIN == "*":
     origins = "*"
 else:
     origins = [o.strip().rstrip("/") for o in CORS_ORIGIN.split(",")]
+    # Always allow the Vercel frontend domain
+    if "https://travaya.vercel.app" not in origins:
+        origins.append("https://travaya.vercel.app")
 
 print(f"🌍 CORS Configured for origins: {origins}")
 CORS(app, resources={r"/api/*": {"origins": origins}}, supports_credentials=True)
