@@ -45,15 +45,9 @@ const allowedOrigins = [
   ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
 ];
 
+# For debugging, allow all origins. You can restrict this later.
 app.use(cors({
-  origin: (origin, callback) => {
-    // Allow server-to-server (no origin) and all vercel.app preview deployments
-    if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: "*",
   credentials: true
 }));
 

@@ -263,23 +263,12 @@ def _build(in_dim, out_dim, u1=13, u2=13):
     m.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
     return m
 
-model  = _build(len(training[0]),  len(output[0]),  13, 13)
-model1 = _build(len(training1[0]), len(output1[0]), 32, 16)
+# Disable heavy model loading on Render to prevent OOM/502
+model = None
+model1 = None
+print("⚠️ Running Chatbot in LIGHT MODE (TensorFlow models disabled for stability on Render)")
 
-for m, tr, op, wp in [
-    (model,  training,  output,  "model.weights.h5"),
-    (model1, training1, output1, "model1.weights.h5")
-]:
-    wp_full = os.path.join(BASE_DIR, wp)
-    if os.path.exists(wp_full):
-        try:
-            m.load_weights(wp_full)
-            print(f"✅ Loaded weights: {wp}")
-        except Exception as e:
-            print(f"⚠️ Error loading weights {wp}: {e}")
-    else:
-        print(f"⚠️ Weights file {wp} NOT FOUND. Skipping training on Render to avoid OOM.")
-        # We don't call m.fit here on Render as it causes 502/OOM
+# Weights loading skipped in Light Mode
 
 def bow(sentence, vocab):
     bag    = [0] * len(vocab)
@@ -294,15 +283,7 @@ def bow(sentence, vocab):
 # ══════════════════════════════════════════════════════════════
 
 def warmup():
-    try:
-        print("🔥 Warming up models...")
-        dummy = bow("hello", words)
-        model.predict(np.array([dummy]), verbose=0)
-        dummy1 = bow("goa", words1)
-        model1.predict(np.array([dummy1]), verbose=0)
-        print("✅ Models warmed up — ready to serve!")
-    except Exception as e:
-        print(f"⚠️ Warmup failed: {e}")
+    print("✅ Service ready in Light Mode.")
 
 warmup()
 
@@ -312,27 +293,21 @@ warmup()
 # ══════════════════════════════════════════════════════════════
 
 def get_response(tag: str, prompt: str, confidence: float) -> str:
-    threshold = get_threshold(tag)
-
-    # Below threshold → smart fallback
-    if confidence < threshold:
-        return get_smart_fallback(prompt)
-
-    if tag == "destinations":
-        pred = model1.predict(np.array([bow(prompt, words1)]), verbose=0)[0]
-        tag1 = labels1[np.argmax(pred)]
-        conf1 = float(np.max(pred))
-        if conf1 < 0.40:
-            return get_smart_fallback(prompt)
-        for intent in data1["intents"]:
-            if intent["tag"] == tag1:
+    # Light Mode logic: try to find a matching intent without the model
+    prompt_lower = prompt.lower()
+    
+    # 1. Check destinations first
+    for intent in data1["intents"]:
+        for pattern in intent["patterns"]:
+            if pattern.lower() in prompt_lower:
                 return random.choice(intent["responses"])
-    else:
-        for intent in data["intents"]:
-            if intent["tag"] == tag:
-                resp = random.choice(intent["responses"])
-                return resp if resp else get_smart_fallback(prompt)
-
+                
+    # 2. Check general intents
+    for intent in data["intents"]:
+        for pattern in intent["patterns"]:
+            if pattern.lower() in prompt_lower:
+                return random.choice(intent["responses"])
+                
     return get_smart_fallback(prompt)
 
 
@@ -370,11 +345,10 @@ def chat():
                         (time.time()-t_start)*1000, True)
         return jsonify(cached)
 
-    # Model prediction
-    pred       = model.predict(np.array([bow(corrected_msg, words)]), verbose=0)[0]
-    tag        = labels[np.argmax(pred)]
-    confidence = float(np.max(pred))
-    response   = get_response(tag, corrected_msg, confidence)
+    # Light Mode prediction (Keyword based)
+    tag = "unknown"
+    confidence = 1.0
+    response = get_response(tag, corrected_msg, confidence)
 
     result = {
         "status"      : "success",

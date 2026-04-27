@@ -47,7 +47,8 @@ else:
         origins.append("https://travaya.vercel.app")
 
 print(f"🌍 CORS Configured for origins: {origins}")
-CORS(app, resources={r"/api/*": {"origins": origins}}, supports_credentials=True)
+# Global CORS for debugging
+CORS(app, origins="*", supports_credentials=True)
 
 @app.before_request
 def log_request_info():
