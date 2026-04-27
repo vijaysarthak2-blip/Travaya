@@ -204,18 +204,21 @@ PERF_LOG_PATH = os.path.join(BASE_DIR, "performance_log.json")
 
 def log_performance(message: str, tag: str, confidence: float,
                     response_time_ms: float, cache_hit: bool):
-    log = _load(PERF_LOG_PATH) if os.path.exists(PERF_LOG_PATH) else []
-    log.append({
-        "timestamp"       : datetime.now().isoformat(),
-        "message_preview" : message[:60],
-        "tag"             : tag,
-        "confidence"      : round(confidence, 3),
-        "response_time_ms": round(response_time_ms, 2),
-        "cache_hit"       : cache_hit
-    })
-    # Keep only last 500 entries
-    if len(log) > 500: log = log[-500:]
-    with open(PERF_LOG_PATH, "w", encoding="utf-8") as f: json.dump(log, f, indent=2)
+    try:
+        log = _load(PERF_LOG_PATH) if os.path.exists(PERF_LOG_PATH) else []
+        log.append({
+            "timestamp"       : datetime.now().isoformat(),
+            "message_preview" : message[:60],
+            "tag"             : tag,
+            "confidence"      : round(confidence, 3),
+            "response_time_ms": round(response_time_ms, 2),
+            "cache_hit"       : cache_hit
+        })
+        # Keep only last 500 entries
+        if len(log) > 500: log = log[-500:]
+        with open(PERF_LOG_PATH, "w", encoding="utf-8") as f: json.dump(log, f, indent=2)
+    except Exception as e:
+        print(f"⚠️ Could not log performance: {e}")
 
 
 # ══════════════════════════════════════════════════════════════

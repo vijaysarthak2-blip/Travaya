@@ -31,18 +31,24 @@ def _save(path, data):
     with open(path, "w", encoding="utf-8") as f: json.dump(data, f, indent=2)
 
 def log_user_input(prefs: dict):
-    log = _load(USER_LOG)
-    log.append({"timestamp": datetime.now().isoformat(), "user_input": prefs})
-    _save(USER_LOG, log)
+    try:
+        log = _load(USER_LOG)
+        log.append({"timestamp": datetime.now().isoformat(), "user_input": prefs})
+        _save(USER_LOG, log)
+    except Exception as e:
+        print(f"⚠️ Could not log user input: {e}")
 
 def log_recommendations(prefs: dict, results: list):
-    log = _load(REC_LOG)
-    log.append({
-        "timestamp": datetime.now().isoformat(),
-        "user_input": prefs,
-        "recommended_packages": [p["name"] for p in results]
-    })
-    _save(REC_LOG, log)
+    try:
+        log = _load(REC_LOG)
+        log.append({
+            "timestamp": datetime.now().isoformat(),
+            "user_input": prefs,
+            "recommended_packages": [p["name"] for p in results]
+        })
+        _save(REC_LOG, log)
+    except Exception as e:
+        print(f"⚠️ Could not log recommendations: {e}")
 
 
 # ── Scoring Logic ───────────────────────────────────────────

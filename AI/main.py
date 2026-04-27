@@ -32,9 +32,29 @@ app = Flask(__name__)
 
 # Configure CORS
 CORS_ORIGIN = os.environ.get("CORS_ORIGIN", "*")
-CORS(app, resources={r"/api/*": {"origins": CORS_ORIGIN}})
+# If it's a comma-separated list, split it
+origins = [o.strip() for o in CORS_ORIGIN.split(",")] if "," in CORS_ORIGIN else CORS_ORIGIN
 
-# ── Health Check ───────────────────────────────────────────
+CORS(app, resources={r"/api/*": {"origins": origins}}, supports_credentials=True)
+
+@app.before_request
+def log_request_info():
+    app.logger.debug('Headers: %s', request.headers)
+    app.logger.debug('Body: %s', request.get_data())
+    # Log origin to help debug CORS
+    origin = request.headers.get('Origin')
+    if origin:
+        app.logger.info(f"Request from origin: {origin}")
+
+# ── Health & Root ──────────────────────────────────────────
+@app.route("/")
+def home():
+    return jsonify({
+        "status": "online",
+        "message": "Travaya AI API is active.",
+        "endpoints": ["/api/chat", "/api/recommend", "/api/health"]
+    })
+
 @app.route("/api/health")
 def combined_health():
     return jsonify({
