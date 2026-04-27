@@ -271,8 +271,15 @@ for m, tr, op, wp in [
     (model1, training1, output1, "model1.weights.h5")
 ]:
     wp_full = os.path.join(BASE_DIR, wp)
-    try:    m.load_weights(wp_full)
-    except: m.fit(tr, op, epochs=200, batch_size=8, verbose=0); m.save_weights(wp_full)
+    if os.path.exists(wp_full):
+        try:
+            m.load_weights(wp_full)
+            print(f"✅ Loaded weights: {wp}")
+        except Exception as e:
+            print(f"⚠️ Error loading weights {wp}: {e}")
+    else:
+        print(f"⚠️ Weights file {wp} NOT FOUND. Skipping training on Render to avoid OOM.")
+        # We don't call m.fit here on Render as it causes 502/OOM
 
 def bow(sentence, vocab):
     bag    = [0] * len(vocab)
@@ -287,12 +294,15 @@ def bow(sentence, vocab):
 # ══════════════════════════════════════════════════════════════
 
 def warmup():
-    print("🔥 Warming up models...")
-    dummy = bow("hello", words)
-    model.predict(np.array([dummy]), verbose=0)
-    dummy1 = bow("goa", words1)
-    model1.predict(np.array([dummy1]), verbose=0)
-    print("✅ Models warmed up — ready to serve!")
+    try:
+        print("🔥 Warming up models...")
+        dummy = bow("hello", words)
+        model.predict(np.array([dummy]), verbose=0)
+        dummy1 = bow("goa", words1)
+        model1.predict(np.array([dummy1]), verbose=0)
+        print("✅ Models warmed up — ready to serve!")
+    except Exception as e:
+        print(f"⚠️ Warmup failed: {e}")
 
 warmup()
 
