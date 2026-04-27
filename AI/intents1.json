@@ -3,87 +3,97 @@
     {
       "tag": "packages_list",
       "patterns": ["list all packages", "show all packages", "what packages do you have", "list destinations", "all tours", "show everything", "recommend"],
-      "responses": ["Here are our featured India travel packages:\n\n🏖️ GOA & COASTAL:\n- Goa Beach Escape (5D/4N): ₹12,000 - ₹18,000/person\n- Andaman Island Paradise (7D/6N): ₹28,000 - ₹45,000/person\n- Kerala Coastal Retreat (6D/5N): ₹18,000 - ₹28,000/person\n\n🏔️ MOUNTAINS & HILLS:\n- Manali-Spiti Adventure (8D/7N): ₹22,000 - ₹35,000/person\n- Kashmir Paradise (6D/5N): ₹25,000 - ₹40,000/person\n- Darjeeling-Sikkim Tour (7D/6N): ₹18,000 - ₹28,000/person\n\n🏰 HERITAGE & CULTURE:\n- Rajasthan Royal Heritage (10D/9N): ₹20,000 - ₹38,000/person\n- Varanasi & Agra Spiritual Tour (5D/4N): ₹12,000 - ₹20,000/person\n\n🌿 NATURE & WILDLIFE:\n- Kerala Backwaters & Munnar (7D/6N): ₹20,000 - ₹32,000/person\n- Meghalaya & Assam Northeast (8D/7N): ₹22,000 - ₹36,000/person\n\nAsk me about any destination for more details!"]
+      "responses": ["We have city-specific tours across India! Here are some of our top destinations:\n\n🚩 RAJASTHAN: Jaipur, Udaipur\n🌴 KERALA: Munnar, Alleppey\n🏔️ HILL STATIONS: Manali, Shimla, Tawang\n🌊 COASTAL: Panaji (Goa), Visakhapatnam\n✨ SPIRITUAL: Tirupati, Amritsar, Bodh Gaya\n🌃 CITIES: Mumbai, Bangalore, Ahmedabad\n\nAsk me about any city for details!"]
     },
     {
-      "tag": "Goa",
-      "patterns": ["Goa", "Goa trip", "Goa package", "Goa beach", "tell me about Goa", "Goa tour"],
-      "responses": ["🏖️ GOA BEACH ESCAPE\n- Duration: 5 Days / 4 Nights\n- Estimated Cost: ₹12,000 - ₹18,000 per person\n- Best Time to Visit: October to March\n- Type: Beach, Nightlife, Water Sports\n- Highlights: Baga & Calangute Beach, Old Goa Churches (UNESCO), Water Sports at Dona Paula, Dudhsagar Waterfalls, Anjuna Flea Market\n- Includes: Hotel stay, Breakfast, Sightseeing transfers\n- Travel Style: Adventure, Family, Budget & Luxury options available"]
+      "tag": "Tirupati",
+      "patterns": ["Tirupati", "Tirupati trip", "tell me about Tirupati"],
+      "responses": ["✨ TIRUPATI SPIRITUAL TOUR\n- State: Andhra Pradesh\n- Price: ₹9,000\n- Type: Heritage, Popular\n- Highlights: Venkateswara Temple, Silathoranam, Kapila Theertham\n- Description: Famous temple city and spiritual destination."]
     },
     {
-      "tag": "Andaman",
-      "patterns": ["Andaman", "Andaman and Nicobar", "Andaman Islands", "Andaman trip", "tell me about Andaman", "Andaman tour"],
-      "responses": ["🏝️ ANDAMAN ISLAND PARADISE\n- Duration: 7 Days / 6 Nights\n- Estimated Cost: ₹28,000 - ₹45,000 per person\n- Best Time to Visit: October to May\n- Type: Beach, Water Sports, Nature\n- Highlights: Radhanagar Beach (Asia's Best Beach), Scuba Diving & Snorkeling, Cellular Jail (Port Blair), Havelock & Neil Island, Glass Bottom Boat Ride\n- Includes: Hotel stay, Breakfast, Ferry transfers, Sightseeing\n- Travel Style: Honeymoon, Adventure, Family"]
+      "tag": "Visakhapatnam",
+      "patterns": ["Visakhapatnam", "Vizag", "tell me about Vizag"],
+      "responses": ["🌊 VISAKHAPATNAM COASTAL ESCAPE\n- State: Andhra Pradesh\n- Price: ₹12,000\n- Type: Nature\n- Highlights: RK Beach, Rushikonda Beach, Submarine Museum\n- Description: Beautiful coastal city with beaches and hills."]
     },
     {
-      "tag": "Kerala",
-      "patterns": ["Kerala", "Kerala trip", "Kerala package", "God's Own Country", "backwaters", "tell me about Kerala", "Kerala tour", "Munnar", "Alleppey", "Kovalam"],
-      "responses": ["🌴 KERALA - GOD'S OWN COUNTRY\n- Duration: 7 Days / 6 Nights\n- Estimated Cost: ₹20,000 - ₹32,000 per person\n- Best Time to Visit: September to March\n- Type: Nature, Beach, Culture, Wellness\n- Highlights: Alleppey Houseboat Stay, Munnar Tea Gardens, Kovalam & Varkala Beaches, Thekkady Wildlife Sanctuary, Kathakali Dance Performance, Ayurvedic Spa\n- Includes: Hotel + Houseboat stay, Breakfast, Sightseeing\n- Travel Style: Honeymoon, Family, Luxury, Culture"]
+      "tag": "Tawang",
+      "patterns": ["Tawang", "Arunachal trip", "tell me about Tawang"],
+      "responses": ["🏔️ TAWANG MONASTERY TRAIL\n- State: Arunachal Pradesh\n- Price: ₹18,000\n- Type: Heritage, Nature\n- Highlights: Tawang Monastery, Sela Pass, Madhuri Lake\n- Description: Scenic monastery and mountain landscapes."]
     },
     {
-      "tag": "Rajasthan",
-      "patterns": ["Rajasthan", "Rajasthan trip", "Rajasthan package", "desert tour", "Jaipur", "Udaipur", "Jodhpur", "Jaisalmer", "tell me about Rajasthan", "Royal Rajasthan"],
-      "responses": ["🏰 RAJASTHAN ROYAL HERITAGE TOUR\n- Duration: 10 Days / 9 Nights\n- Estimated Cost: ₹20,000 - ₹38,000 per person\n- Best Time to Visit: October to February\n- Type: Heritage, Culture, Desert Safari\n- Highlights: Amber Fort (Jaipur), City Palace (Udaipur), Mehrangarh Fort (Jodhpur), Jaisalmer Desert Safari, Pushkar Lake, Hawa Mahal, Camel Ride\n- Includes: Hotel stay, Breakfast, Sightseeing transfers\n- Travel Style: Cultural, Family, Luxury, Heritage"]
+      "tag": "Kaziranga",
+      "patterns": ["Kaziranga", "Assam wildlife", "tell me about Kaziranga"],
+      "responses": ["🦏 KAZIRANGA WILDLIFE SAFARI\n- State: Assam\n- Price: ₹14,000\n- Type: Nature\n- Highlights: Rhino Safari, Elephant Ride, Orchid Park\n- Description: National park famous for one-horned rhinoceros."]
     },
     {
-      "tag": "Himachal",
-      "patterns": ["Himachal Pradesh", "Manali", "Shimla", "Spiti", "Spiti Valley", "Manali trip", "Himachal trip", "tell me about Manali", "tell me about Shimla", "snow", "mountains Himachal"],
-      "responses": ["🏔️ MANALI-SPITI ADVENTURE\n- Duration: 8 Days / 7 Nights\n- Estimated Cost: ₹22,000 - ₹35,000 per person\n- Best Time to Visit: April to October (Spiti: June-September)\n- Type: Adventure, Trekking, Snow, Nature\n- Highlights: Rohtang Pass, Spiti Valley Monasteries, Solang Valley (Snow Activities), Kullu River Rafting, Hidimba Temple Manali, Kaza & Key Monastery\n- Includes: Hotel/Camp stay, Meals, Sightseeing & Transfers\n- Travel Style: Adventure, Backpacking, Youth Travel"]
+      "tag": "Guwahati",
+      "patterns": ["Guwahati", "tell me about Guwahati"],
+      "responses": ["⛩️ GUWAHATI TEMPLE TOUR\n- State: Assam\n- Price: ₹11,000\n- Type: Heritage\n- Highlights: Kamakhya Temple, Brahmaputra River Cruise, Umananda Island\n- Description: Gateway to Northeast India with temples."]
     },
     {
-      "tag": "Kashmir",
-      "patterns": ["Kashmir", "Kashmir trip", "Kashmir tour", "Dal Lake", "Gulmarg", "Pahalgam", "Srinagar", "tell me about Kashmir", "heaven on earth"],
-      "responses": ["🌸 KASHMIR PARADISE\n- Duration: 6 Days / 5 Nights\n- Estimated Cost: ₹25,000 - ₹40,000 per person\n- Best Time to Visit: March to June (Tulip season), Dec-Jan (Snow)\n- Type: Nature, Romance, Adventure\n- Highlights: Dal Lake Shikara Ride, Gulmarg Gondola (Asia's highest), Pahalgam Valley, Betaab Valley, Mughal Gardens, Houseboat Stay, Skiing in Gulmarg\n- Includes: Houseboat + Hotel stay, Breakfast, Sightseeing\n- Travel Style: Honeymoon, Family, Adventure, Luxury"]
+      "tag": "Bodh_Gaya",
+      "patterns": ["Bodh Gaya", "Gaya", "tell me about Bodh Gaya"],
+      "responses": ["🧘 BODH GAYA PILGRIMAGE\n- State: Bihar\n- Price: ₹8,000\n- Type: Heritage\n- Highlights: Mahabodhi Temple, Bodhi Tree, Great Buddha Statue\n- Description: Sacred Buddhist pilgrimage site."]
     },
     {
-      "tag": "Darjeeling_Sikkim",
-      "patterns": ["Darjeeling", "Sikkim", "Gangtok", "Northeast mountains", "tea gardens", "Darjeeling trip", "Sikkim trip", "tell me about Darjeeling", "tell me about Sikkim"],
-      "responses": ["🍵 DARJEELING-SIKKIM HIMALAYAN TOUR\n- Duration: 7 Days / 6 Nights\n- Estimated Cost: ₹18,000 - ₹28,000 per person\n- Best Time to Visit: March to May, September to December\n- Type: Nature, Culture, Adventure, Tea Tourism\n- Highlights: Tiger Hill Sunrise (Kanchenjunga view), Darjeeling Tea Garden, Batasia Loop, Gangtok Rumtek Monastery, Tsomgo Lake, Nathula Pass (Indo-China border), Toy Train Ride\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Family, Honeymoon, Cultural, Nature"]
+      "tag": "Panaji",
+      "patterns": ["Panaji", "Goa", "Panjim", "tell me about Goa"],
+      "responses": ["🏖️ PANAJI BEACH PARADISE\n- State: Goa\n- Price: ₹16,000\n- Type: Nature, Popular\n- Highlights: Baga Beach, Old Goa Churches, Mandovi River Cruise\n- Description: Portuguese heritage and beach paradise."]
     },
     {
-      "tag": "Varanasi",
-      "patterns": ["Varanasi", "Agra", "Taj Mahal", "spiritual tour", "Varanasi trip", "Golden Triangle", "Uttar Pradesh tour", "tell me about Varanasi", "tell me about Agra"],
-      "responses": ["🛕 VARANASI & AGRA SPIRITUAL-HERITAGE TOUR\n- Duration: 5 Days / 4 Nights\n- Estimated Cost: ₹12,000 - ₹20,000 per person\n- Best Time to Visit: October to March\n- Type: Spiritual, Heritage, Cultural\n- Highlights: Varanasi Ganga Aarti (Dashashwamedh Ghat), Sarnath Buddhist Site, Taj Mahal at Sunrise (Agra), Agra Fort, Boat Ride on the Ganges, Kashi Vishwanath Temple\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Spiritual, Cultural, Heritage, Family"]
+      "tag": "Ahmedabad",
+      "patterns": ["Ahmedabad", "Amdavad", "tell me about Ahmedabad"],
+      "responses": ["🧵 AHMEDABAD HERITAGE TOUR\n- State: Gujarat\n- Price: ₹11,000\n- Type: Heritage\n- Highlights: Sabarmati Ashram, Adalaj Stepwell, Kankaria Lake\n- Description: Heritage city with rich cultural history."]
     },
     {
-      "tag": "Northeast",
-      "patterns": ["Meghalaya", "Assam", "Northeast India", "seven sisters", "Kaziranga", "Shillong", "Cherrapunji", "Arunachal Pradesh", "Manipur", "Nagaland", "Mizoram", "Tripura", "Northeast tour"],
-      "responses": ["🌿 MEGHALAYA & ASSAM NORTHEAST EXPLORER\n- Duration: 8 Days / 7 Nights\n- Estimated Cost: ₹22,000 - ₹36,000 per person\n- Best Time to Visit: October to April\n- Type: Nature, Wildlife, Culture, Adventure\n- Highlights: Cherrapunji (Wettest place on Earth), Living Root Bridges, Dawki River (Crystal Clear), Kaziranga National Park (One-Horned Rhino Safari), Shillong Peak, Umiam Lake, Mawlynnong (Asia's Cleanest Village)\n- Includes: Hotel stay, Breakfast, Sightseeing & Transfers\n- Travel Style: Adventure, Nature, Wildlife, Cultural"]
+      "tag": "Manali",
+      "patterns": ["Manali", "tell me about Manali"],
+      "responses": ["⛷️ MANALI ADVENTURE ESCAPE\n- State: Himachal Pradesh\n- Price: ₹15,000\n- Type: Nature, Popular\n- Highlights: Solang Valley, Rohtang Pass, Hadimba Temple\n- Description: Adventure sports and mountain beauty."]
     },
     {
-      "tag": "Ladakh",
-      "patterns": ["Ladakh", "Leh", "Leh Ladakh", "Pangong Lake", "Nubra Valley", "tell me about Ladakh", "Ladakh trip"],
-      "responses": ["⛰️ LEH-LADAKH HIGH ALTITUDE ADVENTURE\n- Duration: 7 Days / 6 Nights\n- Estimated Cost: ₹25,000 - ₹42,000 per person\n- Best Time to Visit: June to September\n- Type: Adventure, Trekking, Bikes, Nature\n- Highlights: Pangong Lake (Iconic 3 Idiots location), Nubra Valley Camel Safari, Khardung La Pass (World's highest motorable road), Magnetic Hill, Hemis Monastery, Tso Moriri Lake, Leh Palace\n- Includes: Hotel/Camp stay, Breakfast, Sightseeing\n- Travel Style: Adventure, Backpacking, Biking, Youth"]
+      "tag": "Shimla",
+      "patterns": ["Shimla", "tell me about Shimla"],
+      "responses": ["🏠 SHIMLA QUEEN OF HILLS\n- State: Himachal Pradesh\n- Price: ₹13,000\n- Type: Nature\n- Highlights: The Ridge, Mall Road, Kufri\n- Description: Queen of Hills with colonial charm."]
     },
     {
-      "tag": "Karnataka",
-      "patterns": ["Karnataka", "Coorg", "Hampi", "Bangalore", "Mysore", "tell me about Karnataka", "Karnataka trip", "Coorg trip", "Hampi trip"],
-      "responses": ["🌺 KARNATAKA EXPLORER\n- Duration: 6 Days / 5 Nights\n- Estimated Cost: ₹14,000 - ₹24,000 per person\n- Best Time to Visit: October to March\n- Type: Heritage, Nature, Coffee Estates\n- Highlights: Hampi UNESCO Ruins, Coorg Coffee Plantations & Abbey Falls, Mysore Palace (Illuminated on Sundays), Jog Falls, Kabini Wildlife Sanctuary, Badami Cave Temples\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Cultural, Nature, Family, Budget"]
+      "tag": "Bangalore",
+      "patterns": ["Bangalore", "Bengaluru", "tell me about Bangalore"],
+      "responses": ["🌳 BANGALORE GARDEN CITY\n- State: Karnataka\n- Price: ₹12,000\n- Type: Popular\n- Highlights: Lalbagh Botanical Garden, Bangalore Palace, Bannerghatta Park\n- Description: Tech hub with gardens and nightlife."]
     },
     {
-      "tag": "Tamil_Nadu",
-      "patterns": ["Tamil Nadu", "Chennai", "Ooty", "Kodaikanal", "Madurai", "Rameswaram", "tell me about Tamil Nadu", "Tamil Nadu trip", "South India tour"],
-      "responses": ["🏛️ TAMIL NADU CULTURAL & NATURE TOUR\n- Duration: 7 Days / 6 Nights\n- Estimated Cost: ₹15,000 - ₹26,000 per person\n- Best Time to Visit: November to February\n- Type: Heritage, Hill Station, Spiritual\n- Highlights: Meenakshi Amman Temple (Madurai), Ooty Nilgiri Mountain Railway, Kodaikanal Lake, Rameswaram Temple, Marina Beach (Chennai), Thanjavur Brihadeeswarar Temple (UNESCO)\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Cultural, Spiritual, Family, Heritage"]
+      "tag": "Mysore",
+      "patterns": ["Mysore", "Mysuru", "tell me about Mysore"],
+      "responses": ["🏰 MYSORE ROYAL HERITAGE\n- State: Karnataka\n- Price: ₹10,000\n- Type: Heritage\n- Highlights: Mysore Palace, Brindavan Gardens, Chamundi Hills\n- Description: Royal heritage and cultural richness."]
     },
     {
-      "tag": "Maharashtra",
-      "patterns": ["Maharashtra", "Mumbai", "Pune", "Aurangabad", "Ajanta Ellora", "tell me about Maharashtra", "Maharashtra trip"],
-      "responses": ["🏙️ MAHARASHTRA TOUR\n- Duration: 6 Days / 5 Nights\n- Estimated Cost: ₹14,000 - ₹22,000 per person\n- Best Time to Visit: October to March\n- Type: Heritage, City, Nature\n- Highlights: Ajanta & Ellora Caves (UNESCO World Heritage), Gateway of India (Mumbai), Lonavala & Khandala Hill Stations, Shirdi Sai Baba Temple, Mahabaleshwar Hill Station, Elephanta Caves\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Cultural, Heritage, Family, Spiritual"]
+      "tag": "Munnar",
+      "patterns": ["Munnar", "tell me about Munnar"],
+      "responses": ["🍃 MUNNAR TEA GARDENS\n- State: Kerala\n- Price: ₹12,000\n- Type: Nature, Popular\n- Highlights: Tea Museums, Eravikulam National Park, Mattupetty Dam\n- Description: Beautiful hill station with tea plantations."]
     },
     {
-      "tag": "Gujarat",
-      "patterns": ["Gujarat", "Ahmedabad", "Rann of Kutch", "Gir Forest", "Dwarka", "tell me about Gujarat", "Gujarat trip"],
-      "responses": ["🦁 GUJARAT HERITAGE & WILDLIFE TOUR\n- Duration: 7 Days / 6 Nights\n- Estimated Cost: ₹16,000 - ₹28,000 per person\n- Best Time to Visit: October to March (Rann Utsav: Nov-Feb)\n- Type: Wildlife, Heritage, Salt Flats\n- Highlights: Gir National Park (Asiatic Lion Safari), Rann of Kutch White Desert, Dwarka & Somnath Temples, Adalaj Stepwell, Sabarmati Ashram (Ahmedabad), Statue of Unity (Kevadia)\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Wildlife, Spiritual, Cultural, Family"]
+      "tag": "Alleppey",
+      "patterns": ["Alleppey", "Alappuzha", "backwaters", "tell me about Alleppey"],
+      "responses": ["🛶 ALLEPPEY BACKWATERS\n- State: Kerala\n- Price: ₹15,000\n- Type: Nature\n- Highlights: Houseboat Stay, Alappuzha Beach, Vembanad Lake\n- Description: Famous for its backwaters and houseboats."]
     },
     {
-      "tag": "Lakshadweep",
-      "patterns": ["Lakshadweep", "Lakshadweep trip", "Lakshadweep package", "tell me about Lakshadweep", "coral islands", "tropical islands India"],
-      "responses": ["🌊 LAKSHADWEEP CORAL ISLAND RETREAT\n- Duration: 5 Days / 4 Nights\n- Estimated Cost: ₹30,000 - ₹55,000 per person\n- Best Time to Visit: October to May\n- Type: Beach, Snorkeling, Water Sports\n- Highlights: Agatti Island (Pristine Lagoons), Bangaram Island Resort, Snorkeling & Scuba Diving in Coral Reefs, Kayaking, Glass Bottom Boat Ride, Deep Sea Fishing\n- Includes: Resort stay, All Meals, Water sports\n- Travel Style: Luxury, Honeymoon, Beach, Adventure\n- Note: Entry requires permit (arranged by Travaya)"]
+      "tag": "Mumbai",
+      "patterns": ["Mumbai", "Bombay", "tell me about Mumbai"],
+      "responses": ["🌃 MUMBAI FINANCIAL CAPITAL\n- State: Maharashtra\n- Price: ₹15,000\n- Type: Popular\n- Highlights: Gateway of India, Marine Drive, Elephanta Caves\n- Description: Financial capital with diverse culture."]
     },
     {
-      "tag": "Odisha",
-      "patterns": ["Odisha", "Puri", "Konark", "Bhubaneswar", "tell me about Odisha", "Odisha trip"],
-      "responses": ["🛕 ODISHA SPIRITUAL & BEACH TOUR\n- Duration: 5 Days / 4 Nights\n- Estimated Cost: ₹11,000 - ₹18,000 per person\n- Best Time to Visit: October to March\n- Type: Spiritual, Heritage, Beach\n- Highlights: Jagannath Temple Puri, Konark Sun Temple (UNESCO), Puri Golden Beach, Chilika Lake (Asia's largest brackish lake), Nandankanan Zoo, Lingaraj Temple Bhubaneswar\n- Includes: Hotel stay, Breakfast, Sightseeing\n- Travel Style: Spiritual, Cultural, Family, Budget"]
+      "tag": "Amritsar",
+      "patterns": ["Amritsar", "Golden Temple", "tell me about Amritsar"],
+      "responses": ["✨ AMRITSAR GOLDEN TEMPLE\n- State: Punjab\n- Price: ₹10,000\n- Type: Heritage, Popular\n- Highlights: Golden Temple, Wagah Border Ceremony, Jallianwala Bagh\n- Description: Home to the Golden Temple."]
+    },
+    {
+      "tag": "Jaipur",
+      "patterns": ["Jaipur", "Pink City", "tell me about Jaipur"],
+      "responses": ["🚩 JAIPUR PINK CITY\n- State: Rajasthan\n- Price: ₹14,000\n- Type: Popular, Heritage\n- Highlights: Amber Fort, Hawa Mahal, Chokhi Dhani\n- Description: The Pink City."]
+    },
+    {
+      "tag": "Udaipur",
+      "patterns": ["Udaipur", "City of Lakes", "tell me about Udaipur"],
+      "responses": ["⛵ UDAIPUR CITY OF LAKES\n- State: Rajasthan\n- Price: ₹16,000\n- Type: Heritage\n- Highlights: Lake Pichola, City Palace, Jag Mandir\n- Description: The City of Lakes."]
     }
   ]
 }
