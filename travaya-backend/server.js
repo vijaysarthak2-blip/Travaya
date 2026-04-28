@@ -45,7 +45,7 @@ const allowedOrigins = [
   ...(process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : []),
 ];
 
-# For debugging, allow all origins. You can restrict this later.
+// For debugging, allow all origins. You can restrict this later.
 app.use(cors({
   origin: "*",
   credentials: true
